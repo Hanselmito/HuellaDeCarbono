@@ -1,8 +1,12 @@
 package com.github.Hanselmito.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,14 +21,15 @@ public class Actividad {
     private String nombre;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "id_categoria", nullable = false)
-    private com.github.Hanselmito.entities.Categoria idCategoria;
+    private Categoria idCategoria;
 
     @OneToMany(mappedBy = "idActividad")
-    private Set<com.github.Hanselmito.entities.Habito> habitos = new LinkedHashSet<>();
+    private List<Habito> habitos = new ArrayList<>();
 
     @OneToMany(mappedBy = "idActividad")
-    private Set<com.github.Hanselmito.entities.Huella> huellas = new LinkedHashSet<>();
+    private List<Huella> huellas = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -42,27 +47,27 @@ public class Actividad {
         this.nombre = nombre;
     }
 
-    public com.github.Hanselmito.entities.Categoria getIdCategoria() {
+    public Categoria getIdCategoria() {
         return idCategoria;
     }
 
-    public void setIdCategoria(com.github.Hanselmito.entities.Categoria idCategoria) {
+    public void setIdCategoria(Categoria idCategoria) {
         this.idCategoria = idCategoria;
     }
 
-    public Set<com.github.Hanselmito.entities.Habito> getHabitos() {
+    public List<Habito> getHabitos() {
         return habitos;
     }
 
-    public void setHabitos(Set<com.github.Hanselmito.entities.Habito> habitos) {
+    public void setHabitos(List<Habito> habitos) {
         this.habitos = habitos;
     }
 
-    public Set<com.github.Hanselmito.entities.Huella> getHuellas() {
+    public List<Huella> getHuellas() {
         return huellas;
     }
 
-    public void setHuellas(Set<com.github.Hanselmito.entities.Huella> huellas) {
+    public void setHuellas(List<Huella> huellas) {
         this.huellas = huellas;
     }
 
