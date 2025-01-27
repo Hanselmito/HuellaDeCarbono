@@ -2,6 +2,8 @@ package com.github.Hanselmito.entities;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -15,10 +17,12 @@ public class Huella {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "id_usuario", nullable = false)
     private com.github.Hanselmito.entities.Usuario idUsuario;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "id_actividad", nullable = false)
     private Actividad idActividad;
 
@@ -40,11 +44,11 @@ public class Huella {
         this.id = id;
     }
 
-    public com.github.Hanselmito.entities.Usuario getIdUsuario() {
+    public Usuario getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(com.github.Hanselmito.entities.Usuario idUsuario) {
+    public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
     }
 

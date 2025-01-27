@@ -3,7 +3,9 @@ package com.github.Hanselmito.entities;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,10 +26,10 @@ public class Categoria {
     private String unidad;
 
     @OneToMany(mappedBy = "idCategoria")
-    private Set<Actividad> actividads = new LinkedHashSet<>();
+    private List<Actividad> actividads = new ArrayList<>();
 
     @OneToMany(mappedBy = "idCategoria")
-    private Set<com.github.Hanselmito.entities.Recomendacion> recomendacions = new LinkedHashSet<>();
+    private List<Recomendacion> recomendacions = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -61,19 +63,19 @@ public class Categoria {
         this.unidad = unidad;
     }
 
-    public Set<Actividad> getActividads() {
+    public List<Actividad> getActividads() {
         return actividads;
     }
 
-    public void setActividads(Set<Actividad> actividads) {
+    public void setActividads(List<Actividad> actividads) {
         this.actividads = actividads;
     }
 
-    public Set<com.github.Hanselmito.entities.Recomendacion> getRecomendacions() {
+    public List<Recomendacion> getRecomendacions() {
         return recomendacions;
     }
 
-    public void setRecomendacions(Set<com.github.Hanselmito.entities.Recomendacion> recomendacions) {
+    public void setRecomendacions(List<Recomendacion> recomendacions) {
         this.recomendacions = recomendacions;
     }
 

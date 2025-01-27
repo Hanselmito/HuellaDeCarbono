@@ -1,6 +1,9 @@
 package com.github.Hanselmito.entities;
 
+import com.github.Hanselmito.entities.Enums.TipoEnum;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
 
@@ -12,20 +15,22 @@ public class Habito {
 
     @MapsId("idUsuario")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "id_usuario", nullable = false)
     private com.github.Hanselmito.entities.Usuario idUsuario;
 
     @MapsId("idActividad")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "id_actividad", nullable = false)
     private Actividad idActividad;
 
     @Column(name = "frecuencia", nullable = false)
     private Integer frecuencia;
 
-    @Lob
-    @Column(name = "tipo", nullable = false)
-    private String tipo;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo", nullable = false, columnDefinition = "ENUM('diaria', 'semanal', 'mensual', 'anual')")
+    private TipoEnum tipo;
 
     @Column(name = "ultima_fecha", nullable = false)
     private Instant ultimaFecha;
@@ -38,11 +43,11 @@ public class Habito {
         this.id = id;
     }
 
-    public com.github.Hanselmito.entities.Usuario getIdUsuario() {
+    public Usuario getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(com.github.Hanselmito.entities.Usuario idUsuario) {
+    public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -62,11 +67,11 @@ public class Habito {
         this.frecuencia = frecuencia;
     }
 
-    public String getTipo() {
+    public TipoEnum getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoEnum tipo) {
         this.tipo = tipo;
     }
 

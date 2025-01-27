@@ -1,6 +1,8 @@
 package com.github.Hanselmito.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.math.BigDecimal;
 
@@ -13,11 +15,11 @@ public class Recomendacion {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "id_categoria", nullable = false)
     private Categoria idCategoria;
 
-    @Lob
-    @Column(name = "descripcion", nullable = false)
+    @Column(name = "descripcion", nullable = false, columnDefinition = "TEXT")
     private String descripcion;
 
     @Column(name = "impacto_estimado", nullable = false, precision = 10, scale = 2)

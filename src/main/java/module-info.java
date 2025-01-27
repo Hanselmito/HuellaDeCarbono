@@ -7,4 +7,5 @@ module com.github.Hanselmito {
 
     opens com.github.Hanselmito to javafx.fxml;
     exports com.github.Hanselmito;
+    opens com.github.Hanselmito.entities to org.hibernate.orm.core;
 }
