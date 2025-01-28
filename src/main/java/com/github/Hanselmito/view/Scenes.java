@@ -2,7 +2,7 @@ package com.github.Hanselmito.view;
 
 public enum Scenes {
     ROOT("view/layout.fxml"),
-    PRIMARY("view/primary.fxml"),
+    LOGIN("view/Login.fxml"),
     SECUNDARY("view/secondary.fxml");
 
     private String url;
