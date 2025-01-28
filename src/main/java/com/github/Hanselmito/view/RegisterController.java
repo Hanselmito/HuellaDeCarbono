@@ -1,0 +1,74 @@
+package com.github.Hanselmito.view;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import com.github.Hanselmito.App;
+import com.github.Hanselmito.controllers.UsuarioController;
+import com.github.Hanselmito.entities.Usuario;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
+
+public class RegisterController extends Controller implements Initializable {
+
+    @FXML
+    private TextField TextName;
+
+    @FXML
+    private TextField TextEmail;
+
+    @FXML
+    private TextField TextPassword;
+
+    @FXML
+    private Label errorP;
+
+    @FXML
+    private Button Register;
+
+    private UsuarioController usuarioController = new UsuarioController();
+
+    @Override
+    public void onOpen(Object input) throws Exception {
+        // Implementación específica de RegisterController
+    }
+
+    @Override
+    public void onClose(Object output) {
+        // Implementación específica de RegisterController
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Register.setOnAction(event -> {
+            try {
+                handleRegister();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void handleRegister() throws Exception {
+        String nombre = TextName.getText();
+        String email = TextEmail.getText();
+        String contrasena = TextPassword.getText();
+
+        Usuario usuario = new Usuario();
+        usuario.setNombre(nombre);
+        usuario.setEmail(email);
+        usuario.setContrasena(contrasena);
+
+        try {
+            usuarioController.addUsuario(usuario);
+            App.currentController.changeScene(Scenes.LOGIN, null);
+        } catch (Exception e) {
+            errorP.setText(e.getMessage());
+            errorP.setVisible(true);
+            e.printStackTrace();
+        }
+    }
+}

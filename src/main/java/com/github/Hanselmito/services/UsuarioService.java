@@ -3,12 +3,14 @@ package com.github.Hanselmito.services;
 import com.github.Hanselmito.dao.UsuarioDAO;
 import com.github.Hanselmito.entities.Usuario;
 
+import java.time.LocalDate;
+
 public class UsuarioService {
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
 
 
-    public Usuario login(String email, String contrasena) throws Exception {
-        Usuario usuario = usuarioDAO.findByEmailAndPassword(email, contrasena);
+    public Usuario login(String identifier, String contrasena) throws Exception {
+        Usuario usuario = usuarioDAO.findByEmailOrUsernameAndPassword(identifier, contrasena);
         if (usuario == null) {
             throw new Exception("Credenciales inválidas");
         }
@@ -25,6 +27,7 @@ public class UsuarioService {
         if (usuario.getContrasena() == null || usuario.getContrasena().isEmpty()) {
             throw new Exception("La contraseña del usuario no puede estar vacía");
         }
+        usuario.setFechaRegistro(LocalDate.now());
         usuarioDAO.save(usuario);
     }
 
