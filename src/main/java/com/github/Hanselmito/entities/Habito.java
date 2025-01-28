@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "habito", schema = "eco")
@@ -33,7 +34,7 @@ public class Habito {
     private TipoEnum tipo;
 
     @Column(name = "ultima_fecha", nullable = false)
-    private Instant ultimaFecha;
+    private LocalDate ultimaFecha;
 
     public HabitoId getId() {
         return id;
@@ -75,11 +76,11 @@ public class Habito {
         this.tipo = tipo;
     }
 
-    public Instant getUltimaFecha() {
+    public LocalDate getUltimaFecha() {
         return ultimaFecha;
     }
 
-    public void setUltimaFecha(Instant ultimaFecha) {
+    public void setUltimaFecha(LocalDate ultimaFecha) {
         this.ultimaFecha = ultimaFecha;
     }
 

@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 public class SecondaryController {
 
     @FXML
-    private void switchToPrimary() throws IOException {
-        App.setRoot("primary");
+    private void switchToPrimary() throws Exception {
+        App.currentController.changeScene(Scenes.LOGIN,null);
     }
 }
