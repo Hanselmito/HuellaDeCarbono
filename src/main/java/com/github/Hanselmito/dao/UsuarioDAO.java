@@ -15,7 +15,6 @@ public class UsuarioDAO implements DAO<Usuario> {
         Transaction transaction = session.beginTransaction();
         session.save(usuario);
         transaction.commit();
-        Connection.getInstance().close();
         return usuario;
     }
 
@@ -25,7 +24,6 @@ public class UsuarioDAO implements DAO<Usuario> {
         Transaction transaction = session.beginTransaction();
         session.update(usuario);
         transaction.commit();
-        Connection.getInstance().close();
         return usuario;
     }
 
@@ -35,7 +33,6 @@ public class UsuarioDAO implements DAO<Usuario> {
         Transaction transaction = session.beginTransaction();
         session.delete(usuario);
         transaction.commit();
-        Connection.getInstance().close();
         return usuario;
     }
 
@@ -43,18 +40,16 @@ public class UsuarioDAO implements DAO<Usuario> {
     public Usuario findById(int key) {
         Session session = Connection.getInstance().getSession();
         Usuario usuario = session.get(Usuario.class, key);
-        Connection.getInstance().close();
         return usuario;
     }
 
-    public Usuario findByEmailAndPassword(String email, String contrasena) {
-        Session session = Connection.getInstance().getSession();
-        Query<Usuario> query = session.createQuery("FROM Usuario WHERE email = :email AND contrasena = :contrasena", Usuario.class);
-        query.setParameter("email", email);
-        query.setParameter("contrasena", contrasena);
-        Usuario usuario = query.uniqueResult();
-        Connection.getInstance().close();
-        return usuario;
+    public Usuario findByEmailOrUsernameAndPassword(String identifier, String contrasena) {
+        try (Session session = Connection.getInstance().getSession()) {
+            Query<Usuario> query = session.createQuery("FROM Usuario WHERE (email = :identifier OR nombre = :identifier) AND contrasena = :contrasena", Usuario.class);
+            query.setParameter("identifier", identifier);
+            query.setParameter("contrasena", contrasena);
+            return query.uniqueResult();
+        }
     }
 
     @Override

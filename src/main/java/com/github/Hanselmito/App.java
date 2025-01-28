@@ -4,8 +4,10 @@ import com.github.Hanselmito.view.AppController;
 import com.github.Hanselmito.view.Scenes;
 import com.github.Hanselmito.view.View;
 import javafx.application.Application;
-import javafx.scene.Scene;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.scene.Scene;
 
 public class App extends Application {
 
@@ -16,7 +18,11 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         View view = AppController.loadFXML(Scenes.ROOT);
-        scene = new Scene(view.scene, 652, 403);
+
+        // Obtener las dimensiones de la pantalla del dispositivo
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        scene = new Scene(view.scene, screenBounds.getWidth(), screenBounds.getHeight());
+
         currentController = (AppController) view.controller;
         currentController.onOpen(null);
         stage.setScene(scene);
