@@ -4,10 +4,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
 
 @Entity
 @Table(name = "usuario", schema = "eco")
@@ -28,7 +26,7 @@ public class Usuario {
 
     @ColumnDefault("current_timestamp()")
     @Column(name = "fecha_registro", nullable = false)
-    private Instant fechaRegistro;
+    private LocalDate fechaRegistro;
 
     @OneToMany(mappedBy = "idUsuario")
     private List<Habito> habitos = new ArrayList<>();
@@ -68,11 +66,11 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public Instant getFechaRegistro() {
+    public LocalDate getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(Instant fechaRegistro) {
+    public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 
@@ -92,4 +90,28 @@ public class Usuario {
         this.huellas = huellas;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(id, usuario.id) && Objects.equals(nombre, usuario.nombre) && Objects.equals(email, usuario.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nombre, email);
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", email='" + email + '\'' +
+                ", contrasena='" + contrasena + '\'' +
+                ", fechaRegistro=" + fechaRegistro + '\'' +
+                ", Habitos=" + habitos + '\'' +
+                ", Huellas=" + huellas + '\'' +
+                '}';
+    }
 }
