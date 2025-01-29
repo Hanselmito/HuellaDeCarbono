@@ -52,4 +52,12 @@ public class UsuarioService {
         }
         return usuario;
     }
+
+    public Usuario findUsuarioByEmail(String email) throws Exception {
+        Usuario usuario = usuarioDAO.findByEmail(email);
+        if (usuario == null) {
+            throw new Exception("Usuario no encontrado");
+        }
+        return usuario;
+    }
 }

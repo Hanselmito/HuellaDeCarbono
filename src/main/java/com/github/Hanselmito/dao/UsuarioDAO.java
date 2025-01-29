@@ -52,6 +52,17 @@ public class UsuarioDAO implements DAO<Usuario> {
         }
     }
 
+    public Usuario findByEmail(String email) {
+        try (Session session = Connection.getInstance().getSession()) {
+            Query<Usuario> query = session.createQuery("FROM Usuario WHERE email = :email", Usuario.class);
+            query.setParameter("email", email);
+            return query.uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @Override
     public void close() {
         // Implementación del método close

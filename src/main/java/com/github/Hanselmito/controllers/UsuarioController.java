@@ -27,6 +27,17 @@ public class UsuarioController {
         }
     }
 
+    public void updatePassword(String email, String newPassword) throws Exception {
+        Usuario usuario = usuarioService.findUsuarioByEmail(email);
+        if (usuario != null) {
+            usuario.setContrasena(newPassword);
+            usuarioService.updateUsuario(usuario);
+            showAlert("Actualización exitosa", "Contraseña actualizada correctamente.");
+        } else {
+            showAlert("Error de actualización", "Usuario no encontrado.");
+        }
+    }
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
