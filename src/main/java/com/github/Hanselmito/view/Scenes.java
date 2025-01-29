@@ -3,7 +3,9 @@ package com.github.Hanselmito.view;
 public enum Scenes {
     ROOT("view/layout.fxml"),
     LOGIN("view/Login.fxml"),
-    REGISTER("view/Register.fxml");
+    REGISTER("view/Register.fxml"),
+    UPDATEPASS("view/UpdatePassword.fxml"),
+    MENU("view/Menu.fxml");
 
     private String url;
     Scenes(String url){

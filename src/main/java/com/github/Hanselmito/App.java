@@ -19,7 +19,6 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         View view = AppController.loadFXML(Scenes.ROOT);
 
-        // Obtener las dimensiones de la pantalla del dispositivo
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         scene = new Scene(view.scene, screenBounds.getWidth(), screenBounds.getHeight());
 

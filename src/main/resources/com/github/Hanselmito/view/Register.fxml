@@ -84,7 +84,7 @@
                         <HBox prefHeight="22.0" prefWidth="470.0">
                             <children>
                                 <Pane prefHeight="22.0" prefWidth="48.0" />
-                                <Label fx:id="errorP" disable="true" prefHeight="22.0" prefWidth="422.0" text="eeeeee" textAlignment="CENTER">
+                                <Label fx:id="errorP" prefHeight="22.0" prefWidth="422.0" text="eeeeee" textAlignment="CENTER" visible="false">
                                     <font>
                                         <Font name="System Bold Italic" size="15.0" />
                                     </font>
@@ -105,7 +105,7 @@
                         <HBox prefHeight="35.0" prefWidth="470.0">
                             <children>
                                 <Pane prefHeight="27.0" prefWidth="116.0" />
-                                <Label fx:id="SignIn" prefHeight="37.0" prefWidth="216.0" text="Sign In" textAlignment="CENTER" underline="true" alignment="CENTER">
+                                <Label fx:id="SignIn" alignment="CENTER" prefHeight="37.0" prefWidth="216.0" text="Sign In" textAlignment="CENTER" underline="true">
                                     <font>
                                         <Font name="Arial Rounded MT Bold" size="16.0" />
                                     </font>

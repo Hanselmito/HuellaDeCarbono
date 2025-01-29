@@ -27,6 +27,9 @@ public class RegisterController extends Controller implements Initializable {
     private Label errorP;
 
     @FXML
+    private Label SignIn;
+
+    @FXML
     private Button Register;
 
     private UsuarioController usuarioController = new UsuarioController();
@@ -46,6 +49,13 @@ public class RegisterController extends Controller implements Initializable {
         Register.setOnAction(event -> {
             try {
                 handleRegister();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        SignIn.setOnMouseClicked(event -> {
+            try {
+                handleLogin();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -70,5 +80,9 @@ public class RegisterController extends Controller implements Initializable {
             errorP.setVisible(true);
             e.printStackTrace();
         }
+    }
+
+    private void handleLogin() throws Exception{
+        App.currentController.changeScene(Scenes.LOGIN, null);
     }
 }
