@@ -2,6 +2,7 @@ package com.github.Hanselmito.view;
 
 import com.github.Hanselmito.App;
 import com.github.Hanselmito.controllers.UsuarioController;
+import com.github.Hanselmito.entities.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -68,16 +69,22 @@ public class LoginController extends Controller implements Initializable {
     private void handleLogin() throws Exception {
         String identifier = TextUser.getText();
         String contrasena = TextPassword.getText();
-        if (usuarioController.comprobarCredenciales(identifier, contrasena)) {
-            App.currentController.changeScene(Scenes.MENU, null);
-        } else {
-            if (!usuarioController.comprobarCredenciales(identifier, "")) {
-                errorUE.setText("Nombre de Usuario o Email no válido");
-                errorUE.setVisible(true);
+        try {
+            Usuario usuario = usuarioController.login(identifier, contrasena);
+            if (usuario != null) {
+                App.currentController.changeScene(Scenes.MENU, usuario);
             } else {
-                errorP.setText("Contraseña incorrecta");
-                errorP.setVisible(true);
+                if (!usuarioController.comprobarCredenciales(identifier, "")) {
+                    errorUE.setText("Nombre de Usuario o Email no válido");
+                    errorUE.setVisible(true);
+                } else {
+                    errorP.setText("Contraseña incorrecta");
+                    errorP.setVisible(true);
+                }
             }
+        } catch (Exception e) {
+            errorUE.setText("Nombre de Usuario o Email no válido");
+            errorUE.setVisible(true);
         }
     }
 

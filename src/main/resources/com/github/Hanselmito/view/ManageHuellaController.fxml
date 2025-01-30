@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Hanselmito.view.ManageHuellaController">
+    <children>
+        <StackPane fx:id="stackPane" prefHeight="400.0" prefWidth="600.0">
+            <AnchorPane fx:id="anadirPane" visible="false">
+                <VBox layoutX="20.0" layoutY="20.0" spacing="10.0">
+                    <Label text="Añadir Huella" />
+                    <HBox spacing="10.0">
+                        <Label text="Usuario" />
+                        <TextField fx:id="anadirUsuarioTextField" editable="false" prefHeight="25.0" prefWidth="129.0" />
+                    </HBox>
+                    <HBox spacing="10.0">
+                        <Label text="Actividad" />
+                        <ChoiceBox fx:id="anadirActividadChoiceBox" />
+                    </HBox>
+                    <HBox spacing="10.0">
+                        <Label text="Valor" />
+                        <TextField fx:id="anadirValorTextField" />
+                    </HBox>
+                    <HBox spacing="10.0">
+                        <Label text="Unidad" />
+                        <TextField fx:id="anadirUnidadTextField" />
+                    </HBox>
+                    <Button onAction="#handleAddHuella" text="Añadir" />
+                </VBox>
+            </AnchorPane>
+            <AnchorPane fx:id="actualizarPane" visible="false">
+                <VBox layoutX="20.0" layoutY="20.0" spacing="10.0">
+                    <Label text="Actualizar Huella" />
+                    <HBox spacing="10.0">
+                        <Label text="Usuario" />
+                        <TextField fx:id="actualizarUsuarioTextField" editable="false" prefHeight="25.0" prefWidth="129.0" />
+                    </HBox>
+                    <HBox spacing="10.0">
+                        <Label text="Actividad" />
+                        <ChoiceBox fx:id="actualizarActividadChoiceBox" />
+                    </HBox>
+                    <HBox spacing="10.0">
+                        <Label text="Valor" />
+                        <TextField fx:id="actualizarValorTextField" />
+                    </HBox>
+                    <HBox spacing="10.0">
+                        <Label text="Unidad" />
+                        <TextField fx:id="actualizarUnidadTextField" />
+                    </HBox>
+                    <Button onAction="#handleUpdateHuella" text="Actualizar" />
+                </VBox>
+            </AnchorPane>
+            <AnchorPane fx:id="borrarPane" visible="false">
+                <VBox layoutX="20.0" layoutY="20.0" spacing="10.0">
+                    <Label text="Borrar Huella" />
+                    <TableView fx:id="huellaTableView">
+                        <columns>
+                            <TableColumn fx:id="usuarioColumn" text="Usuario" />
+                            <TableColumn fx:id="actividadColumn" text="Actividad" />
+                            <TableColumn fx:id="valorColumn" text="Valor" />
+                            <TableColumn fx:id="unidadColumn" text="Unidad" />
+                            <TableColumn fx:id="fechaColumn" text="Fecha" />
+                        </columns>
+                    </TableView>
+                    <Button onAction="#handleDeleteHuella" text="Borrar" />
+                </VBox>
+            </AnchorPane>
+        </StackPane>
+    </children>
+</AnchorPane>

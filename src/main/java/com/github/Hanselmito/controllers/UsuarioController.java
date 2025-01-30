@@ -7,6 +7,10 @@ import javafx.scene.control.Alert;
 public class UsuarioController {
     private UsuarioService usuarioService = new UsuarioService();
 
+    public Usuario login(String identifier, String contrasena) throws Exception {
+        return usuarioService.login(identifier, contrasena);
+    }
+
     public boolean comprobarCredenciales(String identifier, String contrasena) {
         try {
             Usuario usuario = usuarioService.login(identifier, contrasena);
