@@ -1,40 +1,39 @@
 package com.github.Hanselmito.dao;
 
 import com.github.Hanselmito.connection.Connection;
-import com.github.Hanselmito.entities.Actividad;
+import com.github.Hanselmito.entities.Categoria;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class ActividadDAO implements DAO<Actividad> {
+public class CategoriaDAO implements DAO<Categoria> {
 
     @Override
-    public Actividad save(Actividad actividad) {
+    public Categoria save(Categoria categoria) {
         throw new UnsupportedOperationException("Operación no soportada");
     }
 
     @Override
-    public Actividad update(Actividad actividad) {
+    public Categoria update(Categoria categoria) {
         throw new UnsupportedOperationException("Operación no soportada");
     }
 
     @Override
-    public Actividad delete(Actividad actividad) {
+    public Categoria delete(Categoria categoria) {
         throw new UnsupportedOperationException("Operación no soportada");
     }
 
     @Override
-    public Actividad findById(int key) {
+    public Categoria findById(int key) {
         Session session = Connection.getInstance().getSession();
-        Actividad actividad = session.get(Actividad.class, key);
-        return actividad;
+        Categoria categoria = session.get(Categoria.class, key);
+        return categoria;
     }
 
-    public List<Actividad> findAll() {
+    public List<Categoria> findAll() {
         Session session = Connection.getInstance().getSession();
-        List<Actividad> actividades = session.createQuery("from Actividad", Actividad.class).list();
-        return actividades;
+        List<Categoria> categorias = session.createQuery("from Categoria", Categoria.class).list();
+        return categorias;
     }
 
     @Override

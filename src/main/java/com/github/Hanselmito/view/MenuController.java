@@ -4,24 +4,22 @@ import com.github.Hanselmito.App;
 import com.github.Hanselmito.entities.Huella;
 import com.github.Hanselmito.entities.Usuario;
 import com.github.Hanselmito.services.HuellaService;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Callback;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class MenuController extends Controller implements Initializable {
+
+    @FXML
+    private ScrollPane huellaScrollPane;
 
     @FXML
     private ImageView avatarImage;
@@ -44,11 +42,11 @@ public class MenuController extends Controller implements Initializable {
     @FXML
     private MenuItem BorrarHuella;
 
-    @FXML
-    private ListView<Huella> huellaListView;
-
     private HuellaService huellaService = new HuellaService();
     private Usuario currentUser;
+
+    @FXML
+    private AnchorPane huellaAnchorPane = new AnchorPane();
 
     @Override
     public void onOpen(Object input) throws Exception {
@@ -77,13 +75,7 @@ public class MenuController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadActividades();
-        huellaListView.setCellFactory(new Callback<ListView<Huella>, ListCell<Huella>>() {
-            @Override
-            public ListCell<Huella> call(ListView<Huella> listView) {
-                return new HuellaListCell();
-            }
-        });
+        huellaScrollPane.setContent(huellaAnchorPane);
     }
 
     @FXML
@@ -91,14 +83,16 @@ public class MenuController extends Controller implements Initializable {
         App.currentController.changeScene(Scenes.SETTINGUSER, null);
     }
 
-    private void loadActividades() {
-
-    }
-
     private void loadHuellas(Usuario usuario) {
         try {
             List<Huella> huellas = huellaService.findHuellasByUsuario(usuario);
-            huellaListView.setItems(FXCollections.observableArrayList(huellas));
+            huellaAnchorPane.getChildren().clear();
+            double yOffset = 10.0;
+            for (Huella huella : huellas) {
+                AnchorPane huellaPane = createHuellaPane(huella, yOffset);
+                huellaAnchorPane.getChildren().add(huellaPane);
+                yOffset += 100.0; // Ajusta el valor según el tamaño del panel de huella
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -119,26 +113,32 @@ public class MenuController extends Controller implements Initializable {
         App.currentController.changeScene(Scenes.MANAGERHUELLA, "Borrar");
     }
 
-    private class HuellaListCell extends ListCell<Huella> {
-        @Override
-        protected void updateItem(Huella huella, boolean empty) {
-            super.updateItem(huella, empty);
-            if (empty || huella == null) {
-                setText(null);
-                setGraphic(null);
-            } else {
-                try {
-                    ImageView imageView = new ImageView(new Image(getClass().getResource("/com/github/Hanselmito/Icon/Huella.png").toExternalForm()));
-                    imageView.setFitHeight(50);
-                    imageView.setFitWidth(50);
-                    setText(huella.getIdUsuario().getNombre() + " - " + huella.getValor() + " " + huella.getUnidad() + " - " + huella.getFecha());
-                    setGraphic(imageView);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    setText("Error al cargar la imagen");
-                    setGraphic(null);
-                }
-            }
-        }
+    private AnchorPane createHuellaPane(Huella huella, double yOffset) throws Exception {
+        AnchorPane pane = new AnchorPane();
+        pane.setLayoutY(yOffset);
+        pane.setPrefHeight(90.0);
+        pane.setPrefWidth(huellaScrollPane.getPrefWidth() - 20);
+
+        ImageView imageView = new ImageView(new Image(getClass().getResource("/com/github/Hanselmito/Icon/Huella.png").toExternalForm()));
+        imageView.setFitHeight(50);
+        imageView.setFitWidth(50);
+        imageView.setLayoutX(10);
+        imageView.setLayoutY(10);
+
+        Label nombreUsuario = new Label(huella.getIdUsuario().getNombre());
+        nombreUsuario.setLayoutX(70);
+        nombreUsuario.setLayoutY(10);
+
+        String nombreActividad = huellaService.getNombreActividadById(huella.getIdActividad().getId());
+        Label actividad = new Label("Actividad: " + nombreActividad);
+        actividad.setLayoutX(70);
+        actividad.setLayoutY(30);
+
+        Label valorUnidadFecha = new Label(huella.getValor() + " " + huella.getUnidad() + " - " + huella.getFecha());
+        valorUnidadFecha.setLayoutX(70);
+        valorUnidadFecha.setLayoutY(50);
+
+        pane.getChildren().addAll(imageView, nombreUsuario, actividad, valorUnidadFecha);
+        return pane;
     }
 }
