@@ -3,6 +3,8 @@ package com.github.Hanselmito.dao;
 import com.github.Hanselmito.connection.Connection;
 import com.github.Hanselmito.entities.Usuario;
 import java.sql.SQLException;
+
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -40,6 +42,10 @@ public class UsuarioDAO implements DAO<Usuario> {
     public Usuario findById(int key) {
         Session session = Connection.getInstance().getSession();
         Usuario usuario = session.get(Usuario.class, key);
+        if (usuario != null) {
+            Hibernate.initialize(usuario.getHabitos()); // Inicializar la colección habitos
+        }
+        session.close(); // Cerrar la sesión después de inicializar la colección
         return usuario;
     }
 

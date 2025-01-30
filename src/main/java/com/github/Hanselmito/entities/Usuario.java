@@ -110,8 +110,6 @@ public class Usuario {
                 ", email='" + email + '\'' +
                 ", contrasena='" + contrasena + '\'' +
                 ", fechaRegistro=" + fechaRegistro + '\'' +
-                ", Habitos=" + habitos + '\'' +
-                ", Huellas=" + huellas + '\'' +
                 '}';
     }
 }

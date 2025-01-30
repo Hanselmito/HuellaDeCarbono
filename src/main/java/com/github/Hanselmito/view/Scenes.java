@@ -4,7 +4,8 @@ public enum Scenes {
     ROOT("view/layout.fxml"),
     LOGIN("view/Login.fxml"),
     REGISTER("view/Register.fxml"),
-    UPDATEPASS("view/UpdatePassword.fxml"),
+    MANAGERHUELLA("view/ManageHuellaController.fxml"),
+    SETTINGUSER("view/SettingUsuario.fxml"),
     MENU("view/Menu.fxml");
 
     private String url;
