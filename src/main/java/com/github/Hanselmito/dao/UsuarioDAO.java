@@ -9,7 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-public class UsuarioDAO implements DAO<Usuario> {
+public class UsuarioDAO implements DAO<Usuario, Integer> {
 
     @Override
     public Usuario save(Usuario usuario){
@@ -39,7 +39,7 @@ public class UsuarioDAO implements DAO<Usuario> {
     }
 
     @Override
-    public Usuario findById(int key) {
+    public Usuario findById(Integer key) {
         Session session = Connection.getInstance().getSession();
         Usuario usuario = session.get(Usuario.class, key);
         if (usuario != null) {

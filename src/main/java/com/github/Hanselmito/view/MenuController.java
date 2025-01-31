@@ -5,13 +5,18 @@ import com.github.Hanselmito.entities.Huella;
 import com.github.Hanselmito.entities.Usuario;
 import com.github.Hanselmito.services.HuellaService;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -80,7 +85,18 @@ public class MenuController extends Controller implements Initializable {
 
     @FXML
     private void handleAvatarClick(MouseEvent event) throws Exception {
-        App.currentController.changeScene(Scenes.SETTINGUSER, null);
+        openSettingUsuarioWindow(currentUser);
+    }
+
+    private void openSettingUsuarioWindow(Usuario usuario) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/github/Hanselmito/view/SettingUsuario.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        SettingUsuarioController controller = fxmlLoader.getController();
+        controller.onOpen(usuario);
+        stage.showAndWait();
     }
 
     private void loadHuellas(Usuario usuario) {
@@ -105,12 +121,12 @@ public class MenuController extends Controller implements Initializable {
 
     @FXML
     private void handleActualizarHuella() throws Exception {
-        App.currentController.changeScene(Scenes.MANAGERHUELLA, "Actualizar");
+        App.currentController.changeScene(Scenes.MANAGERHUELLA, new Object[]{currentUser,"Actualizar"});
     }
 
     @FXML
     private void handleBorrarHuella() throws Exception {
-        App.currentController.changeScene(Scenes.MANAGERHUELLA, "Borrar");
+        App.currentController.changeScene(Scenes.MANAGERHUELLA,new Object[]{currentUser,"Borrar"});
     }
 
     private AnchorPane createHuellaPane(Huella huella, double yOffset) throws Exception {

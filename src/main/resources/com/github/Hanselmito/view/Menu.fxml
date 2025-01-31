@@ -29,9 +29,9 @@
                                 <Font name="System Bold Italic" size="28.0" />
                             </font>
                         </Label>
-                        <Pane prefHeight="55.0" prefWidth="436.0" />
+                        <Pane prefHeight="51.0" prefWidth="417.0" />
                         <Label fx:id="username" onMouseClicked="#handleAvatarClick" prefHeight="51.0" prefWidth="121.0" text="Usuario" />
-                        <ImageView fx:id="avatarImage" fitHeight="51.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="avatarImage" fitHeight="51.0" fitWidth="105.0" onMouseClicked="#handleAvatarClick" pickOnBounds="true" preserveRatio="true" />
                     </children>
                 </HBox>
             </children>

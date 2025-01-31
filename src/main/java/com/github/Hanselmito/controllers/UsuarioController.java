@@ -2,6 +2,7 @@ package com.github.Hanselmito.controllers;
 
 import com.github.Hanselmito.services.UsuarioService;
 import com.github.Hanselmito.entities.Usuario;
+import com.github.Hanselmito.utils.PasswordUtil;
 import javafx.scene.control.Alert;
 
 public class UsuarioController {
@@ -31,14 +32,23 @@ public class UsuarioController {
         }
     }
 
-    public void updatePassword(String email, String newPassword) throws Exception {
-        Usuario usuario = usuarioService.findUsuarioByEmail(email);
+    public void updatePassword(String identifier, String newPassword) throws Exception {
+        Usuario usuario = usuarioService.findUsuarioByEmail(identifier);
         if (usuario != null) {
-            usuario.setContrasena(newPassword);
+            usuario.setContrasena(PasswordUtil.hashPassword(newPassword));
             usuarioService.updateUsuario(usuario);
-            showAlert("Actualización exitosa", "Contraseña actualizada correctamente.");
         } else {
-            showAlert("Error de actualización", "Usuario no encontrado.");
+            throw new Exception("Usuario no encontrado");
+        }
+    }
+
+    public void updateUsuario(Usuario usuario) throws Exception {
+        try {
+            usuarioService.updateUsuario(usuario);
+            showAlert("Actualización exitosa", "Usuario actualizado correctamente.");
+        } catch (Exception e) {
+            showAlert("Error de actualización", e.getMessage());
+            throw e;
         }
     }
 

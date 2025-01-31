@@ -6,16 +6,37 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Hanselmito.view.ManageHuellaController">
+<AnchorPane prefHeight="483.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Hanselmito.view.ManageHuellaController">
     <children>
-        <StackPane fx:id="stackPane" prefHeight="400.0" prefWidth="600.0">
+        <StackPane fx:id="stackPane" prefHeight="483.0" prefWidth="636.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <AnchorPane fx:id="anadirPane" visible="false">
-                <VBox layoutX="20.0" layoutY="20.0" spacing="10.0">
+            <HBox prefHeight="51.0" prefWidth="671.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fx:id="Home" fitHeight="52.0" fitWidth="45.0" onMouseClicked="#GoMenu" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icon/3895539931556258249-128.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="labelHome" onMouseClicked="#GoMenu" prefHeight="77.0" prefWidth="237.0" text="Carbon Footprint" underline="true">
+                     <font>
+                        <Font name="System Bold Italic" size="28.0" />
+                     </font>
+                  </Label>
+                  <Pane prefHeight="51.0" prefWidth="184.0" />
+                  <Label fx:id="username" onMouseClicked="#handleAvatarClick" prefHeight="51.0" prefWidth="121.0" text="Usuario" />
+                  <ImageView fx:id="avatarImage" fitHeight="51.0" fitWidth="105.0" onMouseClicked="#handleAvatarClick" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+                <VBox layoutX="14.0" layoutY="77.0" spacing="10.0" AnchorPane.leftAnchor="14.0">
                     <Label text="Añadir Huella" />
                     <HBox spacing="10.0">
                         <Label text="Usuario" />
@@ -31,17 +52,34 @@
                     </HBox>
                     <HBox spacing="10.0">
                         <Label text="Unidad" />
-                        <TextField fx:id="anadirUnidadTextField" />
+                        <ChoiceBox fx:id="anadirUnidadChoiceBox" disable="true" prefHeight="25.0" prefWidth="71.0" />
                     </HBox>
                     <Button onAction="#handleAddHuella" text="Añadir" />
                 </VBox>
             </AnchorPane>
             <AnchorPane fx:id="actualizarPane" visible="false">
-                <VBox layoutX="20.0" layoutY="20.0" spacing="10.0">
-                    <Label text="Actualizar Huella" />
+            <HBox prefHeight="51.0" prefWidth="671.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fx:id="Home1" fitHeight="52.0" fitWidth="45.0" onMouseClicked="#GoMenu" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icon/3895539931556258249-128.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="labelHome1" onMouseClicked="#GoMenu" prefHeight="77.0" prefWidth="237.0" text="Carbon Footprint" underline="true">
+                     <font>
+                        <Font name="System Bold Italic" size="28.0" />
+                     </font>
+                  </Label>
+                  <Pane prefHeight="51.0" prefWidth="184.0" />
+                  <Label fx:id="username1" onMouseClicked="#handleAvatarClick" prefHeight="51.0" prefWidth="121.0" text="Usuario" />
+                  <ImageView fx:id="avatarImage1" fitHeight="51.0" fitWidth="105.0" onMouseClicked="#handleAvatarClick" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+                <VBox layoutX="30.0" layoutY="66.0" spacing="10.0" AnchorPane.bottomAnchor="223.33333333333331" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="65.0">
+                    <Label prefHeight="17.0" prefWidth="115.0" text="Actualizar Huella" />
                     <HBox spacing="10.0">
                         <Label text="Usuario" />
-                        <TextField fx:id="actualizarUsuarioTextField" editable="false" prefHeight="25.0" prefWidth="129.0" />
+                        <TextField fx:id="actualizarUsuarioTextField" editable="false" prefHeight="25.0" prefWidth="157.0" />
                     </HBox>
                     <HBox spacing="10.0">
                         <Label text="Actividad" />
@@ -49,28 +87,60 @@
                     </HBox>
                     <HBox spacing="10.0">
                         <Label text="Valor" />
-                        <TextField fx:id="actualizarValorTextField" />
+                        <TextField fx:id="actualizarValorTextField" prefHeight="25.0" prefWidth="96.0" />
                     </HBox>
                     <HBox spacing="10.0">
                         <Label text="Unidad" />
-                        <TextField fx:id="actualizarUnidadTextField" />
+                        <ChoiceBox fx:id="actualizarUnidadChoiceBox" prefHeight="25.0" prefWidth="71.0" />
                     </HBox>
                     <Button onAction="#handleUpdateHuella" text="Actualizar" />
                 </VBox>
+                <TableView fx:id="UpdateHuellaTableView" layoutX="256.0" layoutY="65.33333333333333" prefHeight="400.0" prefWidth="403.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="256.0" AnchorPane.topAnchor="65.0">
+                    <columns>
+                        <TableColumn fx:id="UpdateUsuarioColumn" prefWidth="61.33331298828125" text="Usuario" />
+                        <TableColumn fx:id="UpdateActividadColumn" prefWidth="115.33331298828125" text="Actividad" />
+                        <TableColumn fx:id="UpdateValorColumn" prefWidth="60.0" text="Valor" />
+                        <TableColumn fx:id="UpdateUnidadColumn" prefWidth="51.99993896484375" text="Unidad" />
+                        <TableColumn fx:id="UpdateFechaColumn" prefWidth="114.0" text="Fecha" />
+                    </columns>
+                </TableView>
             </AnchorPane>
             <AnchorPane fx:id="borrarPane" visible="false">
-                <VBox layoutX="20.0" layoutY="20.0" spacing="10.0">
-                    <Label text="Borrar Huella" />
-                    <TableView fx:id="huellaTableView">
+            <HBox prefHeight="51.0" prefWidth="671.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fx:id="Home11" fitHeight="52.0" fitWidth="45.0" onMouseClicked="#GoMenu" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icon/3895539931556258249-128.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="labelHome11" onMouseClicked="#GoMenu" prefHeight="77.0" prefWidth="237.0" text="Carbon Footprint" underline="true">
+                     <font>
+                        <Font name="System Bold Italic" size="28.0" />
+                     </font>
+                  </Label>
+                  <Pane prefHeight="51.0" prefWidth="184.0" />
+                  <Label fx:id="username11" onMouseClicked="#handleAvatarClick" prefHeight="51.0" prefWidth="121.0" text="Usuario" />
+                  <ImageView fx:id="avatarImage11" fitHeight="51.0" fitWidth="105.0" onMouseClicked="#handleAvatarClick" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+                <VBox layoutX="20.0" layoutY="68.0" prefHeight="409.0" prefWidth="634.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="68.0">
+                    <Label prefHeight="17.0" prefWidth="634.0" text="Borrar Huella" />
+                    <TableView fx:id="huellaTableView" prefHeight="385.0" prefWidth="403.0">
                         <columns>
-                            <TableColumn fx:id="usuarioColumn" text="Usuario" />
-                            <TableColumn fx:id="actividadColumn" text="Actividad" />
-                            <TableColumn fx:id="valorColumn" text="Valor" />
-                            <TableColumn fx:id="unidadColumn" text="Unidad" />
-                            <TableColumn fx:id="fechaColumn" text="Fecha" />
+                            <TableColumn fx:id="usuarioColumn" prefWidth="96.88887786865234" text="Usuario" />
+                            <TableColumn fx:id="actividadColumn" prefWidth="223.77783203125" text="Actividad" />
+                            <TableColumn fx:id="valorColumn" prefWidth="101.33331298828125" text="Valor" />
+                            <TableColumn fx:id="unidadColumn" prefWidth="71.33331298828125" text="Unidad" />
+                            <TableColumn fx:id="fechaColumn" prefWidth="140.22210693359375" text="Fecha" />
                         </columns>
                     </TableView>
-                    <Button onAction="#handleDeleteHuella" text="Borrar" />
+               <HBox prefHeight="28.0" prefWidth="403.0">
+                  <children>
+                     <Pane prefHeight="25.0" prefWidth="248.0" />
+                          <Button onAction="#handleDeleteHuella" prefHeight="25.0" prefWidth="101.0" text="Borrar" />
+                     <Pane prefHeight="25.0" prefWidth="286.0" />
+                  </children>
+               </HBox>
                 </VBox>
             </AnchorPane>
         </StackPane>
