@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class ActividadDAO implements DAO<Actividad> {
+public class ActividadDAO implements DAO<Actividad, Integer> {
 
     @Override
     public Actividad save(Actividad actividad) {
@@ -25,7 +25,7 @@ public class ActividadDAO implements DAO<Actividad> {
     }
 
     @Override
-    public Actividad findById(int key) {
+    public Actividad findById(Integer key) {
         Session session = Connection.getInstance().getSession();
         Actividad actividad = session.get(Actividad.class, key);
         return actividad;

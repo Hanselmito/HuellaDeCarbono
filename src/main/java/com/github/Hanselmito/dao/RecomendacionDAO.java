@@ -6,7 +6,7 @@ import org.hibernate.Session;
 
 import java.util.List;
 
-public class RecomendacionDAO implements DAO<Recomendacion> {
+public class RecomendacionDAO implements DAO<Recomendacion, Integer> {
 
     @Override
     public Recomendacion save(Recomendacion recomendacion) {
@@ -24,7 +24,7 @@ public class RecomendacionDAO implements DAO<Recomendacion> {
     }
 
     @Override
-    public Recomendacion findById(int key) {
+    public Recomendacion findById(Integer key) {
         Session session = Connection.getInstance().getSession();
         Recomendacion recomendacion = session.get(Recomendacion.class, key);
         return recomendacion;

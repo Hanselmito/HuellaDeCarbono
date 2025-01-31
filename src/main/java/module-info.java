@@ -10,6 +10,7 @@ module com.github.Hanselmito {
     opens com.github.Hanselmito.dao to javafx.fxml;
     opens com.github.Hanselmito.services to javafx.fxml;
     opens com.github.Hanselmito.controllers to javafx.fxml;
+    opens com.github.Hanselmito.utils to javafx.fxml;
     opens com.github.Hanselmito.entities to org.hibernate.orm.core, javafx.base;
     opens com.github.Hanselmito.view to javafx.fxml;
     opens com.github.Hanselmito.Test to javafx.fxml;

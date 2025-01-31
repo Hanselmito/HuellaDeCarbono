@@ -2,6 +2,7 @@ package com.github.Hanselmito.services;
 
 import com.github.Hanselmito.dao.UsuarioDAO;
 import com.github.Hanselmito.entities.Usuario;
+import com.github.Hanselmito.utils.PasswordUtil;
 
 import java.time.LocalDate;
 
@@ -10,7 +11,8 @@ public class UsuarioService {
 
 
     public Usuario login(String identifier, String contrasena) throws Exception {
-        Usuario usuario = usuarioDAO.findByEmailOrUsernameAndPassword(identifier, contrasena);
+        String hashedPassword = PasswordUtil.hashPassword(contrasena);
+        Usuario usuario = usuarioDAO.findByEmailOrUsernameAndPassword(identifier, hashedPassword);
         if (usuario == null) {
             throw new Exception("Credenciales inválidas");
         }
@@ -27,6 +29,7 @@ public class UsuarioService {
         if (usuario.getContrasena() == null || usuario.getContrasena().isEmpty()) {
             throw new Exception("La contraseña del usuario no puede estar vacía");
         }
+        usuario.setContrasena(PasswordUtil.hashPassword(usuario.getContrasena()));
         usuario.setFechaRegistro(LocalDate.now());
         usuarioDAO.save(usuario);
     }
@@ -59,5 +62,15 @@ public class UsuarioService {
             throw new Exception("Usuario no encontrado");
         }
         return usuario;
+    }
+
+    public void updatePassword(String email, String newPassword) throws Exception {
+        Usuario usuario = findUsuarioByEmail(email);
+        if (usuario != null) {
+            usuario.setContrasena(PasswordUtil.hashPassword(newPassword));
+            updateUsuario(usuario);
+        } else {
+            throw new Exception("Usuario no encontrado");
+        }
     }
 }

@@ -9,7 +9,7 @@ import org.hibernate.Transaction;
 import java.sql.SQLException;
 import java.util.List;
 
-public class HuellaDAO implements DAO<Huella> {
+public class HuellaDAO implements DAO<Huella, Integer> {
 
     @Override
     public Huella save(Huella huella) {
@@ -39,7 +39,7 @@ public class HuellaDAO implements DAO<Huella> {
     }
 
     @Override
-    public Huella findById(int key) {
+    public Huella findById(Integer key) {
         Session session = Connection.getInstance().getSession();
         Huella huella = session.get(Huella.class, key);
         return huella;

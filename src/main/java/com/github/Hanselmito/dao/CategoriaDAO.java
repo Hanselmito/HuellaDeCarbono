@@ -6,7 +6,7 @@ import org.hibernate.Session;
 
 import java.util.List;
 
-public class CategoriaDAO implements DAO<Categoria> {
+public class CategoriaDAO implements DAO<Categoria, Integer> {
 
     @Override
     public Categoria save(Categoria categoria) {
@@ -24,7 +24,7 @@ public class CategoriaDAO implements DAO<Categoria> {
     }
 
     @Override
-    public Categoria findById(int key) {
+    public Categoria findById(Integer key) {
         Session session = Connection.getInstance().getSession();
         Categoria categoria = session.get(Categoria.class, key);
         return categoria;

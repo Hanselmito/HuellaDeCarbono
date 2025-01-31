@@ -9,13 +9,21 @@ import com.github.Hanselmito.services.HuellaService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
@@ -23,6 +31,18 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ManageHuellaController extends Controller implements Initializable {
+
+    @FXML
+    private ImageView avatarImage;
+
+    @FXML
+    private Label username;
+
+    @FXML
+    private ImageView Home;
+
+    @FXML
+    private Label labelHome;
 
     @FXML
     private StackPane stackPane;
@@ -46,7 +66,7 @@ public class ManageHuellaController extends Controller implements Initializable 
     private TextField anadirValorTextField;
 
     @FXML
-    private TextField anadirUnidadTextField;
+    private ChoiceBox<String> anadirUnidadChoiceBox;
 
     @FXML
     private TextField actualizarUsuarioTextField;
@@ -58,7 +78,7 @@ public class ManageHuellaController extends Controller implements Initializable 
     private TextField actualizarValorTextField;
 
     @FXML
-    private TextField actualizarUnidadTextField;
+    private ChoiceBox<String> actualizarUnidadChoiceBox;
 
     @FXML
     private TableView<Huella> huellaTableView;
@@ -78,6 +98,24 @@ public class ManageHuellaController extends Controller implements Initializable 
     @FXML
     private TableColumn<Huella, String> fechaColumn;
 
+    @FXML
+    private TableView<Huella> UpdateHuellaTableView;
+
+    @FXML
+    private TableColumn<Huella, String> UpdateUsuarioColumn;
+
+    @FXML
+    private TableColumn<Huella, String> UpdateActividadColumn;
+
+    @FXML
+    private TableColumn<Huella, String> UpdateValorColumn;
+
+    @FXML
+    private TableColumn<Huella, String> UpdateUnidadColumn;
+
+    @FXML
+    private TableColumn<Huella, String> UpdateFechaColumn;
+
     private ActividadService actividadService = new ActividadService();
     private HuellaService huellaService = new HuellaService();
     private Usuario currentUser;
@@ -89,6 +127,7 @@ public class ManageHuellaController extends Controller implements Initializable 
             if (inputs.length == 2 && inputs[0] instanceof Usuario && inputs[1] instanceof String) {
                 currentUser = (Usuario) inputs[0];
                 String action = (String) inputs[1];
+                username.setText(currentUser.getNombre());
                 switch (action) {
                     case "Añadir":
                         showPane(anadirPane);
@@ -99,12 +138,24 @@ public class ManageHuellaController extends Controller implements Initializable 
                         showPane(actualizarPane);
                         loadUsuario(currentUser);
                         loadActividades();
+                        loadNuevasHuellas(currentUser);
                         break;
                     case "Borrar":
                         showPane(borrarPane);
+                        loadHuellas(currentUser);
                         break;
                     default:
                         throw new Exception("Acción no reconocida: " + action);
+                }
+                try {
+                    URL avatarUrl = getClass().getResource("/com/github/Hanselmito/Icon/Avatar.png");
+                    if (avatarUrl != null) {
+                        avatarImage.setImage(new Image(avatarUrl.toString()));
+                    } else {
+                        throw new Exception("El archivo de imagen del avatar no se encuentra");
+                    }
+                } catch (Exception e) {
+                    throw new Exception("Error al cargar la imagen del avatar", e);
                 }
             } else {
                 throw new Exception("El input no es válido");
@@ -120,15 +171,61 @@ public class ManageHuellaController extends Controller implements Initializable 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Configurar las opciones de unidad
+        ObservableList<String> unidades = FXCollections.observableArrayList("Km", "KWh", "Kg", "Kg", "m³");
+        anadirUnidadChoiceBox.setItems(unidades);
+        actualizarUnidadChoiceBox.setItems(unidades);
+
+        //Deshabilitar los ChoiceBox de unidad
+        anadirUnidadChoiceBox.setDisable(true);
+        actualizarUnidadChoiceBox.setDisable(true);
+
+        // Configurar el ChangeListener para anadirActividadChoiceBox
+        anadirActividadChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                anadirUnidadChoiceBox.setValue(getUnidadPorActividad(newValue));
+            }
+        });
+
+        // Configurar el ChangeListener para actualizarActividadChoiceBox
+        actualizarActividadChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                actualizarUnidadChoiceBox.setValue(getUnidadPorActividad(newValue));
+            }
+        });
+
+        // Configurar las columnas de las tablas Borrar y actualizar
         usuarioColumn.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
         actividadColumn.setCellValueFactory(new PropertyValueFactory<>("idActividad"));
         valorColumn.setCellValueFactory(new PropertyValueFactory<>("valor"));
         unidadColumn.setCellValueFactory(new PropertyValueFactory<>("unidad"));
         fechaColumn.setCellValueFactory(new PropertyValueFactory<>("fecha"));
 
+        UpdateUsuarioColumn.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
+        UpdateActividadColumn.setCellValueFactory(new PropertyValueFactory<>("idActividad"));
+        UpdateValorColumn.setCellValueFactory(new PropertyValueFactory<>("valor"));
+        UpdateUnidadColumn.setCellValueFactory(new PropertyValueFactory<>("unidad"));
+        UpdateFechaColumn.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+
         // Configurar TextFormatter para los campos de Valor
         setTextFormatter(anadirValorTextField);
         setTextFormatter(actualizarValorTextField);
+    }
+
+    @FXML
+    private void handleAvatarClick(MouseEvent event) throws Exception {
+        openSettingUsuarioWindow(currentUser);
+    }
+
+    private void openSettingUsuarioWindow(Usuario usuario) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/github/Hanselmito/view/SettingUsuario.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        SettingUsuarioController controller = fxmlLoader.getController();
+        controller.onOpen(usuario);
+        stage.showAndWait();
     }
 
     private void setTextFormatter(TextField textField) {
@@ -159,7 +256,7 @@ public class ManageHuellaController extends Controller implements Initializable 
             anadirActividadChoiceBox.setItems(actividadList);
             actualizarActividadChoiceBox.setItems(actividadList);
 
-            anadirActividadChoiceBox.setConverter(new StringConverter<Actividad>() {
+            anadirActividadChoiceBox.setConverter(new StringConverter<>() {
                 @Override
                 public String toString(Actividad actividad) {
                     return actividad.getNombre();
@@ -171,7 +268,7 @@ public class ManageHuellaController extends Controller implements Initializable 
                 }
             });
 
-            actualizarActividadChoiceBox.setConverter(new StringConverter<Actividad>() {
+            actualizarActividadChoiceBox.setConverter(new StringConverter<>() {
                 @Override
                 public String toString(Actividad actividad) {
                     return actividad.getNombre();
@@ -196,13 +293,22 @@ public class ManageHuellaController extends Controller implements Initializable 
             e.printStackTrace();
         }
     }
+    private void loadNuevasHuellas(Usuario usuario) {
+        try {
+            List<Huella> huellas = huellaService.findHuellasByUsuario(usuario);
+            ObservableList<Huella> huellaList = FXCollections.observableArrayList(huellas);
+            UpdateHuellaTableView.setItems(huellaList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void handleAddHuella() {
         try {
             Actividad actividad = anadirActividadChoiceBox.getValue();
             BigDecimal valor = new BigDecimal(anadirValorTextField.getText());
-            String unidad = anadirUnidadTextField.getText();
+            String unidad = anadirUnidadChoiceBox.getValue();
             LocalDate fecha = LocalDate.now();
 
             Huella huella = new Huella();
@@ -215,6 +321,8 @@ public class ManageHuellaController extends Controller implements Initializable 
             huellaService.addHuella(huella);
             showAlert("Registro exitoso", "Huella registrada correctamente.");
             loadHuellas(currentUser);
+            loadNuevasHuellas(currentUser);
+            App.currentController.changeScene(Scenes.MENU, currentUser);
         } catch (Exception e) {
             showAlert("Error de registro", e.getMessage());
         }
@@ -223,16 +331,18 @@ public class ManageHuellaController extends Controller implements Initializable 
     @FXML
     private void handleUpdateHuella() {
         try {
-            Huella huella = huellaTableView.getSelectionModel().getSelectedItem();
+            Huella huella = UpdateHuellaTableView.getSelectionModel().getSelectedItem();
             if (huella != null) {
                 huella.setIdUsuario(currentUser);
                 huella.setIdActividad(actualizarActividadChoiceBox.getValue());
                 huella.setValor(new BigDecimal(actualizarValorTextField.getText()));
-                huella.setUnidad(actualizarUnidadTextField.getText());
+                huella.setUnidad(actualizarUnidadChoiceBox.getValue());
 
                 huellaService.updateHuella(huella);
                 showAlert("Actualización exitosa", "Huella actualizada correctamente.");
                 loadHuellas(currentUser);
+                loadNuevasHuellas(currentUser);
+                App.currentController.changeScene(Scenes.MENU, currentUser);
             } else {
                 showAlert("Error de actualización", "Seleccione una huella para actualizar.");
             }
@@ -249,6 +359,8 @@ public class ManageHuellaController extends Controller implements Initializable 
                 huellaService.deleteHuella(huella);
                 showAlert("Eliminación exitosa", "Huella eliminada correctamente.");
                 loadHuellas(huella.getIdUsuario());
+                loadNuevasHuellas(huella.getIdUsuario());
+                App.currentController.changeScene(Scenes.MENU, currentUser);
             } else {
                 showAlert("Error de eliminación", "Seleccione una huella para eliminar.");
             }
@@ -262,5 +374,13 @@ public class ManageHuellaController extends Controller implements Initializable 
         alert.setTitle(title);
         alert.setContentText(message);
         alert.show();
+    }
+    private String getUnidadPorActividad(Actividad actividad) {
+        return actividad.getIdCategoria().getUnidad();
+    }
+
+    @FXML
+    private void GoMenu(MouseEvent event)throws Exception{
+        App.currentController.changeScene(Scenes.MENU, currentUser);
     }
 }
