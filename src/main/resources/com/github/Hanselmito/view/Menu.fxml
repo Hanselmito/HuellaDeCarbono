@@ -36,7 +36,7 @@
                 </HBox>
             </children>
         </Pane>
-        <ScrollPane fx:id="huellaScrollPane" layoutX="129.33333333333334" layoutY="58.0" prefHeight="542.0" prefWidth="771.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="128.66666666666663" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="58.0">
+        <ScrollPane fx:id="huellaScrollPane" layoutX="524.0" layoutY="58.0" prefHeight="542.0" prefWidth="376.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="525.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="58.0">
             <content>
                 <AnchorPane fx:id="huellaAnchorPane" />
             </content>
@@ -63,7 +63,22 @@
                         <MenuItem fx:id="BorrarHuella" mnemonicParsing="false" onAction="#handleBorrarHuella" text="Borrar" />
                     </items>
                 </MenuButton>
+            <Pane prefHeight="39.0" prefWidth="130.0" />
+            <MenuButton fx:id="HabitoMenu" mnemonicParsing="false" prefHeight="43.0" prefWidth="130.0" text="Habitos">
+              <items>
+                <MenuItem fx:id="anadirHabito" mnemonicParsing="false" text="Añadir" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem fx:id="actualizarHabito" mnemonicParsing="false" text="Actualizar" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="borrarHabito" mnemonicParsing="false" text="Borrar" />
+              </items>
+            </MenuButton>
             </children>
         </VBox>
+      <ScrollPane fx:id="habitoScrollPane" layoutX="175.0" layoutY="59.0" prefHeight="542.0" prefWidth="392.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="132.66666666666674" AnchorPane.rightAnchor="375.0" AnchorPane.topAnchor="58.0">
+         <content>
+            <AnchorPane fx:id="habitoAnchorPane" />
+         </content>
+      </ScrollPane>
     </children>
 </AnchorPane>

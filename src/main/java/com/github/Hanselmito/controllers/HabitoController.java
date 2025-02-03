@@ -4,6 +4,7 @@ import com.github.Hanselmito.services.HabitoService;
 import com.github.Hanselmito.services.RecomendacionService;
 import com.github.Hanselmito.entities.Usuario;
 import com.github.Hanselmito.entities.Actividad;
+import com.github.Hanselmito.entities.Enums.TipoEnum;
 import com.github.Hanselmito.entities.Recomendacion;
 
 import java.time.LocalDate;
@@ -13,9 +14,9 @@ public class HabitoController {
     private HabitoService habitoService = new HabitoService();
     private RecomendacionService recomendacionService = new RecomendacionService();
 
-    public void asignarActividad(Usuario usuario, Actividad actividad, int frecuencia, LocalDate ultimaFecha) {
+    public void asignarActividad(Usuario usuario, Actividad actividad, int frecuencia, TipoEnum tipo, LocalDate ultimaFecha) {
         try {
-            habitoService.asignarActividad(usuario, actividad, frecuencia, ultimaFecha);
+            habitoService.asignarActividad(usuario, actividad, frecuencia, tipo, ultimaFecha);
         } catch (Exception e) {
             e.printStackTrace();
         }

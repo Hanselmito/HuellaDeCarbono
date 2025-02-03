@@ -6,6 +6,7 @@ import com.github.Hanselmito.entities.Huella;
 import com.github.Hanselmito.entities.Usuario;
 import com.github.Hanselmito.services.ActividadService;
 import com.github.Hanselmito.services.HuellaService;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,7 +24,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
@@ -195,14 +195,14 @@ public class ManageHuellaController extends Controller implements Initializable 
         });
 
         // Configurar las columnas de las tablas Borrar y actualizar
-        usuarioColumn.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
-        actividadColumn.setCellValueFactory(new PropertyValueFactory<>("idActividad"));
+        usuarioColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdUsuario().getNombre()));
+        actividadColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdActividad().getNombre()));
         valorColumn.setCellValueFactory(new PropertyValueFactory<>("valor"));
         unidadColumn.setCellValueFactory(new PropertyValueFactory<>("unidad"));
         fechaColumn.setCellValueFactory(new PropertyValueFactory<>("fecha"));
 
-        UpdateUsuarioColumn.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
-        UpdateActividadColumn.setCellValueFactory(new PropertyValueFactory<>("idActividad"));
+        UpdateUsuarioColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdUsuario().getNombre()));
+        UpdateActividadColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdActividad().getNombre()));
         UpdateValorColumn.setCellValueFactory(new PropertyValueFactory<>("valor"));
         UpdateUnidadColumn.setCellValueFactory(new PropertyValueFactory<>("unidad"));
         UpdateFechaColumn.setCellValueFactory(new PropertyValueFactory<>("fecha"));
