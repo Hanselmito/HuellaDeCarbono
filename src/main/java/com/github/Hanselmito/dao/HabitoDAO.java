@@ -3,6 +3,7 @@ package com.github.Hanselmito.dao;
 import com.github.Hanselmito.connection.Connection;
 import com.github.Hanselmito.entities.Habito;
 import com.github.Hanselmito.entities.HabitoId;
+import com.github.Hanselmito.entities.Usuario;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -42,6 +43,13 @@ public class HabitoDAO implements DAO<Habito, HabitoId> {
         Session session = Connection.getInstance().getSession();
         Habito habito = session.get(Habito.class, key);
         return habito;
+    }
+
+    public List<Habito> findHabitosByUsuario(Usuario usuario) {
+        Session session = Connection.getInstance().getSession();
+        List<Habito> habitos = session.createQuery("FROM Habito WHERE idUsuario = :usuario", Habito.class)
+                .setParameter("usuario", usuario).list();
+        return habitos;
     }
 
     public List<Habito> findAll() {

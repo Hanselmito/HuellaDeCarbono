@@ -24,6 +24,7 @@
     <mapping class="com.github.Hanselmito.entities.Huella"/>
     <mapping class="com.github.Hanselmito.entities.Recomendacion"/>
     <mapping class="com.github.Hanselmito.entities.Usuario"/>
+    <mapping class="com.github.Hanselmito.entities.Enums.TipoEnum"/>
     <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 

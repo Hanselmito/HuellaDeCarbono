@@ -1,12 +1,15 @@
 package com.github.Hanselmito.view;
 
 import com.github.Hanselmito.App;
+import com.github.Hanselmito.entities.Habito;
 import com.github.Hanselmito.entities.Huella;
 import com.github.Hanselmito.entities.Usuario;
+import com.github.Hanselmito.services.HabitoService;
 import com.github.Hanselmito.services.HuellaService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -16,8 +19,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -25,6 +30,9 @@ public class MenuController extends Controller implements Initializable {
 
     @FXML
     private ScrollPane huellaScrollPane;
+
+    @FXML
+    private ScrollPane habitoScrollPane;
 
     @FXML
     private ImageView avatarImage;
@@ -47,11 +55,27 @@ public class MenuController extends Controller implements Initializable {
     @FXML
     private MenuItem BorrarHuella;
 
+    @FXML
+    private MenuButton HabitoMenu;
+
+    @FXML
+    private MenuItem anadirHabito;
+
+    @FXML
+    private MenuItem actualizarHabito;
+
+    @FXML
+    private MenuItem borrarHabito;
+
     private HuellaService huellaService = new HuellaService();
+    private HabitoService habitoService = new HabitoService();
     private Usuario currentUser;
 
     @FXML
     private AnchorPane huellaAnchorPane = new AnchorPane();
+
+    @FXML
+    private AnchorPane habitoAnchorPane = new AnchorPane();
 
     @Override
     public void onOpen(Object input) throws Exception {
@@ -69,6 +93,7 @@ public class MenuController extends Controller implements Initializable {
                 throw new Exception("Error al cargar la imagen del avatar", e);
             }
             loadHuellas(currentUser);
+            loadHabitos(currentUser);
         } else {
             throw new Exception("El input no es una instancia de Usuario");
         }
@@ -81,6 +106,11 @@ public class MenuController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         huellaScrollPane.setContent(huellaAnchorPane);
+        habitoScrollPane.setContent(habitoAnchorPane);
+
+        anadirHabito.setOnAction(event -> openManageHabitoWindow(currentUser, "Añadir"));
+        actualizarHabito.setOnAction(event -> openManageHabitoWindow(currentUser, "Actualizar"));
+        borrarHabito.setOnAction(event -> openManageHabitoWindow(currentUser, "Borrar"));
     }
 
     @FXML
@@ -108,6 +138,21 @@ public class MenuController extends Controller implements Initializable {
                 AnchorPane huellaPane = createHuellaPane(huella, yOffset);
                 huellaAnchorPane.getChildren().add(huellaPane);
                 yOffset += 100.0; // Ajusta el valor según el tamaño del panel de huella
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadHabitos(Usuario usuario) {
+        try {
+            List<Habito> habitos = habitoService.findHabitosByUsuario(usuario);
+            habitoAnchorPane.getChildren().clear();
+            double yOffset = 10.0;
+            for (Habito habito : habitos) {
+                AnchorPane habitoPane = createHabitoPane(habito, yOffset);
+                habitoAnchorPane.getChildren().add(habitoPane);
+                yOffset += 100.0; // Ajusta el valor según el tamaño del panel de hábito
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -155,6 +200,88 @@ public class MenuController extends Controller implements Initializable {
         valorUnidadFecha.setLayoutY(50);
 
         pane.getChildren().addAll(imageView, nombreUsuario, actividad, valorUnidadFecha);
+        pane.setOnMouseClicked(event -> {
+            try {
+                handleSeleccionarHuella(huella);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
         return pane;
+    }
+
+    private AnchorPane createHabitoPane(Habito habito, double yOffset) throws Exception {
+        AnchorPane pane = new AnchorPane();
+        pane.setLayoutY(yOffset);
+        pane.setPrefHeight(90.0);
+        pane.setPrefWidth(habitoScrollPane.getPrefWidth() - 20);
+
+        ImageView imageView = new ImageView(new Image(getClass().getResource("/com/github/Hanselmito/Icon/Huella.png").toExternalForm()));
+        imageView.setFitHeight(50);
+        imageView.setFitWidth(50);
+        imageView.setLayoutX(10);
+        imageView.setLayoutY(10);
+
+        Label nombreUsuario = new Label(habito.getIdUsuario().getNombre());
+        nombreUsuario.setLayoutX(70);
+        nombreUsuario.setLayoutY(10);
+
+        String nombreActividad = habitoService.getNombreActividadById(habito.getIdActividad().getId());
+        Label actividad = new Label("Actividad: " + nombreActividad);
+        actividad.setLayoutX(70);
+        actividad.setLayoutY(30);
+
+        Label frecuenciaTipoFecha = new Label(habito.getFrecuencia() + " veces - " + habito.getTipo() + " - " + habito.getUltimaFecha());
+        frecuenciaTipoFecha.setLayoutX(70);
+        frecuenciaTipoFecha.setLayoutY(50);
+
+        pane.getChildren().addAll(imageView, nombreUsuario, actividad, frecuenciaTipoFecha);
+        pane.setOnMouseClicked(event -> {
+            try {
+                handleSeleccionarHabito(habito);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        return pane;
+    }
+
+    private void handleSeleccionarHuella(Huella huella) {
+       if (huella != null){
+       }else{
+           showAlert("Selección de huella", "No se ha seleccionado ninguna huella");
+       }
+    }
+
+    private void handleSeleccionarHabito(Habito habito) {
+        if (habito != null) {
+            // Lógica para manejar la selección del hábito
+        } else {
+            showAlert("Selección de hábito", "No se ha seleccionado ningún hábito");
+        }
+    }
+
+    public void openManageHabitoWindow(Usuario usuario, String action) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/github/Hanselmito/view/ManageHabito.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            ManageHabitoController controller = fxmlLoader.getController();
+            controller.onOpen(new Object[]{usuario, action});
+            stage.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.show();
     }
 }

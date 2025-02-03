@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class HuellaDAO implements DAO<Huella, Integer> {
@@ -51,6 +52,24 @@ public class HuellaDAO implements DAO<Huella, Integer> {
                 .setParameter("usuario", usuario)
                 .list();
         return huellas;
+    }
+
+    public List<Huella> findByUsuarioAndDateRange(Usuario usuario, LocalDate startDate, LocalDate endDate) {
+        Session session = Connection.getInstance().getSession();
+        List<Huella> huellas = session.createQuery("FROM Huella WHERE idUsuario = :usuario AND fecha BETWEEN :startDate AND :endDate", Huella.class)
+                .setParameter("usuario", usuario)
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .list();
+        return huellas;
+    }
+
+    public double calcularMediaPorCategoria(String categoria) {
+        Session session = Connection.getInstance().getSession();
+        Double media = session.createQuery("SELECT AVG(valor) FROM Huella WHERE idActividad.idCategoria.nombre = :categoria", Double.class)
+                .setParameter("categoria", categoria)
+                .uniqueResult();
+        return media != null ? media : 0.0;
     }
 
     @Override
