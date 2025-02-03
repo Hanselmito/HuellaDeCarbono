@@ -64,13 +64,25 @@
                     </items>
                 </MenuButton>
             <Pane prefHeight="39.0" prefWidth="130.0" />
-            <MenuButton fx:id="HabitoMenu" mnemonicParsing="false" prefHeight="43.0" prefWidth="130.0" text="Habitos">
+            <MenuButton fx:id="HabitoMenu" mnemonicParsing="false" prefHeight="37.0" prefWidth="126.0" text="Habitos">
               <items>
                 <MenuItem fx:id="anadirHabito" mnemonicParsing="false" text="Añadir" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                 <MenuItem fx:id="actualizarHabito" mnemonicParsing="false" text="Actualizar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="borrarHabito" mnemonicParsing="false" text="Borrar" />
+              </items>
+            </MenuButton>
+            <Pane prefHeight="38.0" prefWidth="130.0" />
+            <MenuButton fx:id="funcionalidadMenu" mnemonicParsing="false" prefHeight="37.0" prefWidth="126.0" text="Funcionalidad">
+              <items>
+                <MenuItem fx:id="calcularImpacto" mnemonicParsing="false" text="Calcular Impacto" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem fx:id="recomendado" mnemonicParsing="false" text="Recomendado" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="generarReporte" mnemonicParsing="false" text="Generar Reporte" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="compararHuella" mnemonicParsing="false" text="Comparar Huella" />
               </items>
             </MenuButton>
             </children>
