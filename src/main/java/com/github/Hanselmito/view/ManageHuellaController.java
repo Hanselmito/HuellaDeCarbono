@@ -1,6 +1,7 @@
 package com.github.Hanselmito.view;
 
 import com.github.Hanselmito.App;
+import com.github.Hanselmito.controllers.HuellaController;
 import com.github.Hanselmito.entities.Actividad;
 import com.github.Hanselmito.entities.Huella;
 import com.github.Hanselmito.entities.Usuario;
@@ -118,6 +119,7 @@ public class ManageHuellaController extends Controller implements Initializable 
 
     private ActividadService actividadService = new ActividadService();
     private HuellaService huellaService = new HuellaService();
+    private HuellaController huellaController = new HuellaController();
     private Usuario currentUser;
 
     @Override
@@ -318,7 +320,7 @@ public class ManageHuellaController extends Controller implements Initializable 
             huella.setUnidad(unidad);
             huella.setFecha(fecha);
 
-            huellaService.addHuella(huella);
+            huellaController.addHuella(huella);
             showAlert("Registro exitoso", "Huella registrada correctamente.");
             loadHuellas(currentUser);
             loadNuevasHuellas(currentUser);
@@ -338,7 +340,7 @@ public class ManageHuellaController extends Controller implements Initializable 
                 huella.setValor(new BigDecimal(actualizarValorTextField.getText()));
                 huella.setUnidad(actualizarUnidadChoiceBox.getValue());
 
-                huellaService.updateHuella(huella);
+                huellaController.updateHuella(huella);
                 showAlert("Actualización exitosa", "Huella actualizada correctamente.");
                 loadHuellas(currentUser);
                 loadNuevasHuellas(currentUser);
@@ -356,7 +358,7 @@ public class ManageHuellaController extends Controller implements Initializable 
         try {
             Huella huella = huellaTableView.getSelectionModel().getSelectedItem();
             if (huella != null) {
-                huellaService.deleteHuella(huella);
+                huellaController.deleteHuella(huella);
                 showAlert("Eliminación exitosa", "Huella eliminada correctamente.");
                 loadHuellas(huella.getIdUsuario());
                 loadNuevasHuellas(huella.getIdUsuario());

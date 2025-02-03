@@ -6,24 +6,14 @@ import com.github.Hanselmito.entities.Huella;
 import com.github.Hanselmito.entities.Usuario;
 
 import java.math.BigDecimal;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAdjusters;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class HuellaService {
     private HuellaDAO huellaDAO = new HuellaDAO();
 
     public Huella addHuella(Huella huella) throws Exception {
-        if (huella.getIdUsuario() == null) {
-            throw new Exception("El usuario no puede estar vacío");
-        }
-        if (huella.getIdActividad() == null) {
-            throw new Exception("La actividad no puede estar vacía");
-        }
+        validarHuella(huella);
         return huellaDAO.save(huella);
     }
 
@@ -61,41 +51,49 @@ public class HuellaService {
         return actividad.getNombre();
     }
 
-    public BigDecimal calcularHuellaCarbono(Usuario usuario) throws Exception {
-        List<Huella> huellas = huellaDAO.findByUsuario(usuario);
-        BigDecimal huellaTotal = BigDecimal.ZERO;
-
-        for (Huella huella : huellas) {
-            BigDecimal impacto = huella.getValor().multiply(huella.getIdActividad().getIdCategoria().getFactorEmision());
-            huellaTotal = huellaTotal.add(impacto);
-        }
-
-        return huellaTotal;
+    public BigDecimal calcularImpactoHuellaCarbono(Huella huella) {
+        BigDecimal factorEmision = huella.getIdActividad().getIdCategoria().getFactorEmision();
+        BigDecimal valor = huella.getValor();
+        return valor.multiply(factorEmision);
     }
 
-    public Map<LocalDate, BigDecimal> obtenerHistorialHuellaCarbono(Usuario usuario, ChronoUnit periodo) throws Exception {
-        List<Huella> huellas = huellaDAO.findByUsuario(usuario);
+    public BigDecimal calcularImpactoDiario(Usuario usuario, LocalDate fecha) throws Exception {
+        List<Huella> huellas = huellaDAO.findByUsuarioAndDateRange(usuario, fecha, fecha);
         return huellas.stream()
-                .collect(Collectors.groupingBy(
-                        huella -> ajustarFecha(huella.getFecha(), periodo),
-                        Collectors.reducing(BigDecimal.ZERO, huella -> huella.getValor().multiply(huella.getIdActividad().getIdCategoria().getFactorEmision()), BigDecimal::add)
-                ));
+                .map(this::calcularImpactoHuellaCarbono)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public Map<LocalDate, BigDecimal> compararImpactoAmbiental(Usuario usuario, ChronoUnit periodo) throws Exception {
-        return obtenerHistorialHuellaCarbono(usuario, periodo);
+    public BigDecimal calcularImpactoSemanal(Usuario usuario, LocalDate fechaInicio) throws Exception {
+        LocalDate fechaFin = fechaInicio.plusDays(6);
+        List<Huella> huellas = huellaDAO.findByUsuarioAndDateRange(usuario, fechaInicio, fechaFin);
+        return huellas.stream()
+                .map(this::calcularImpactoHuellaCarbono)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    private LocalDate ajustarFecha(LocalDate fecha, ChronoUnit periodo) {
-        switch (periodo) {
-            case WEEKS:
-                return fecha.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-            case MONTHS:
-                return fecha.with(TemporalAdjusters.firstDayOfMonth());
-            case YEARS:
-                return fecha.with(TemporalAdjusters.firstDayOfYear());
-            default:
-                throw new IllegalArgumentException("Período no soportado: " + periodo);
+    public BigDecimal calcularImpactoMensual(Usuario usuario, LocalDate fechaInicio) throws Exception {
+        LocalDate fechaFin = fechaInicio.plusMonths(1).minusDays(1);
+        List<Huella> huellas = huellaDAO.findByUsuarioAndDateRange(usuario, fechaInicio, fechaFin);
+        return huellas.stream()
+                .map(this::calcularImpactoHuellaCarbono)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public BigDecimal calcularImpactoPorCategoria(Usuario usuario, String categoria, LocalDate fechaInicio, LocalDate fechaFin) throws Exception {
+        List<Huella> huellas = huellaDAO.findByUsuarioAndDateRange(usuario, fechaInicio, fechaFin);
+        return huellas.stream()
+                .filter(huella -> huella.getIdActividad().getIdCategoria().getNombre().equalsIgnoreCase(categoria))
+                .map(this::calcularImpactoHuellaCarbono)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    private void validarHuella(Huella huella) throws Exception {
+        if (huella.getIdActividad() == null) {
+            throw new Exception("La actividad no puede estar vacía");
+        }
+        if (huella.getIdActividad() == null) {
+            throw new Exception("La actividad no puede estar vacía");
         }
     }
 }

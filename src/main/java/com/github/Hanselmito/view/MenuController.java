@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
@@ -67,6 +68,21 @@ public class MenuController extends Controller implements Initializable {
     @FXML
     private MenuItem borrarHabito;
 
+    @FXML
+    private MenuButton funcionalidadMenu;
+
+    @FXML
+    private MenuItem calcularImpacto;
+
+    @FXML
+    private MenuItem recomendado;
+
+    @FXML
+    private MenuItem generarReporte;
+
+    @FXML
+    private MenuItem compararHuella;
+
     private HuellaService huellaService = new HuellaService();
     private HabitoService habitoService = new HabitoService();
     private Usuario currentUser;
@@ -76,6 +92,7 @@ public class MenuController extends Controller implements Initializable {
 
     @FXML
     private AnchorPane habitoAnchorPane = new AnchorPane();
+    private Huella huellaSeleccionada;
 
     @Override
     public void onOpen(Object input) throws Exception {
@@ -111,6 +128,32 @@ public class MenuController extends Controller implements Initializable {
         anadirHabito.setOnAction(event -> openManageHabitoWindow(currentUser, "Añadir"));
         actualizarHabito.setOnAction(event -> openManageHabitoWindow(currentUser, "Actualizar"));
         borrarHabito.setOnAction(event -> openManageHabitoWindow(currentUser, "Borrar"));
+
+        calcularImpacto.setOnAction(event -> handleCalcularImpacto());
+    }
+
+    private void handleCalcularImpacto() {
+        try {
+            if (huellaSeleccionada != null) {
+                LocalDate fecha = LocalDate.now();
+                BigDecimal impactoDiario = huellaService.calcularImpactoDiario(currentUser, fecha);
+                BigDecimal impactoSemanal = huellaService.calcularImpactoSemanal(currentUser, fecha);
+                BigDecimal impactoMensual = huellaService.calcularImpactoMensual(currentUser, fecha);
+
+                String categoria = huellaSeleccionada.getIdActividad().getIdCategoria().getNombre();
+                BigDecimal impactoCategoria = huellaService.calcularImpactoPorCategoria(currentUser, categoria, fecha.minusDays(7), fecha);
+
+                showAlert("Impacto de Huella de Carbono",
+                        "Impacto Diario: " + impactoDiario + "\n" +
+                                "Impacto Semanal: " + impactoSemanal + "\n" +
+                                "Impacto Mensual: " + impactoMensual + "\n" +
+                                "Impacto de la Categoría (" + categoria + "): " + impactoCategoria);
+            } else {
+                showAlert("Error", "No se ha seleccionado ninguna huella.");
+            }
+        } catch (Exception e) {
+            showAlert("Error", "No se pudo calcular el impacto de la huella de carbono: " + e.getMessage());
+        }
     }
 
     @FXML
@@ -202,7 +245,12 @@ public class MenuController extends Controller implements Initializable {
         pane.getChildren().addAll(imageView, nombreUsuario, actividad, valorUnidadFecha);
         pane.setOnMouseClicked(event -> {
             try {
-                handleSeleccionarHuella(huella);
+                if (pane.getStyle().contains("#bdff73")) {
+                    pane.setStyle("");
+                } else {
+                    huellaSeleccionada = huella;
+                    pane.setStyle("-fx-background-color: #bdff73;");
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -238,26 +286,15 @@ public class MenuController extends Controller implements Initializable {
 
         pane.getChildren().addAll(imageView, nombreUsuario, actividad, frecuenciaTipoFecha);
         pane.setOnMouseClicked(event -> {
-            try {
-                handleSeleccionarHabito(habito);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            handleSeleccionarHabito(habito);
+            pane.setStyle("-fx-background-color: #bdff73;");
         });
 
         return pane;
     }
 
-    private void handleSeleccionarHuella(Huella huella) {
-       if (huella != null){
-       }else{
-           showAlert("Selección de huella", "No se ha seleccionado ninguna huella");
-       }
-    }
-
     private void handleSeleccionarHabito(Habito habito) {
         if (habito != null) {
-            // Lógica para manejar la selección del hábito
         } else {
             showAlert("Selección de hábito", "No se ha seleccionado ningún hábito");
         }
