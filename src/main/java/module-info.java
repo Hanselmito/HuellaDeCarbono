@@ -8,6 +8,7 @@ module com.github.Hanselmito {
     requires java.desktop;
     requires kernel;
     requires layout;
+    requires io;
 
     opens com.github.Hanselmito to javafx.fxml;
     opens com.github.Hanselmito.dao to javafx.fxml;

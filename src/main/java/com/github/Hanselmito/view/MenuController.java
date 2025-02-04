@@ -185,9 +185,10 @@ public class MenuController extends Controller implements Initializable {
         if (file != null) {
             try {
                 List<Huella> huellas = huellaService.findHuellasByUsuario(currentUser);
-                        List<Recomendacion> recomendaciones = new RecomendacionController().obtenerRecomendacionesPorHabitosPorCategoria(currentUser);
-                                PDFReportGenerator pdfReportGenerator = new PDFReportGenerator();
-                pdfReportGenerator.generateReport(file.getAbsolutePath(), huellas, recomendaciones);
+                List<Recomendacion> recomendaciones = new RecomendacionController().obtenerRecomendacionesPorHabitosPorCategoria(currentUser);
+                List<Habito> habitos = new HabitoService().findHabitosByUsuario(currentUser);
+                PDFReportGenerator pdfReportGenerator = new PDFReportGenerator();
+                pdfReportGenerator.generateReport(file.getAbsolutePath(), huellas, recomendaciones, habitos);
                 showAlert("Éxito", "Reporte generado correctamente.");
             } catch (Exception e) {
                 showAlert("Error", "No se pudo generar el reporte: " + e.getMessage());
