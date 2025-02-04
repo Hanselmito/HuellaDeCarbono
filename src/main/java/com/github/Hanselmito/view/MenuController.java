@@ -133,6 +133,7 @@ public class MenuController extends Controller implements Initializable {
         calcularImpacto.setOnAction(event -> handleCalcularImpacto());
         recomendado.setOnAction(event -> handleRecomendado());
         generarReporte.setOnAction(event -> handleGenerarReporte());
+        compararHuella.setOnAction(event -> handleCompararHuella());
     }
 
     private void handleCalcularImpacto() {
@@ -193,6 +194,26 @@ public class MenuController extends Controller implements Initializable {
             } catch (Exception e) {
                 showAlert("Error", "No se pudo generar el reporte: " + e.getMessage());
             }
+        }
+    }
+
+    @FXML
+    private void handleCompararHuella() {
+        try {
+            if (huellaSeleccionada != null) {
+                String categoria = huellaSeleccionada.getIdActividad().getIdCategoria().getNombre();
+                BigDecimal impactoUsuario = huellaService.calcularImpactoPorCategoria(currentUser, categoria, LocalDate.now().minusYears(1), LocalDate.now());
+                BigDecimal mediaCategoria = huellaService.calcularMediaPorCategoria(categoria);
+
+                showAlert("Comparación de Huella de Carbono",
+                        "Categoría: " + categoria + "\n" +
+                                "Impacto del Usuario: " + impactoUsuario + "\n" +
+                                "Media de Otros Usuarios: " + mediaCategoria);
+            } else {
+                showAlert("Error", "No se ha seleccionado ninguna huella.");
+            }
+        } catch (Exception e) {
+            showAlert("Error", "No se pudo comparar la huella de carbono: " + e.getMessage());
         }
     }
 
