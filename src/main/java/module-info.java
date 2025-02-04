@@ -6,6 +6,8 @@ module com.github.Hanselmito {
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
     requires java.desktop;
+    requires kernel;
+    requires layout;
 
     opens com.github.Hanselmito to javafx.fxml;
     opens com.github.Hanselmito.dao to javafx.fxml;

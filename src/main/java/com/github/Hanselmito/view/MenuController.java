@@ -8,6 +8,7 @@ import com.github.Hanselmito.entities.Recomendacion;
 import com.github.Hanselmito.entities.Usuario;
 import com.github.Hanselmito.services.HabitoService;
 import com.github.Hanselmito.services.HuellaService;
+import com.github.Hanselmito.utils.PDFReportGenerator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,10 +18,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import java.io.File;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
@@ -128,6 +132,7 @@ public class MenuController extends Controller implements Initializable {
 
         calcularImpacto.setOnAction(event -> handleCalcularImpacto());
         recomendado.setOnAction(event -> handleRecomendado());
+        generarReporte.setOnAction(event -> handleGenerarReporte());
     }
 
     private void handleCalcularImpacto() {
@@ -167,6 +172,26 @@ public class MenuController extends Controller implements Initializable {
             stage.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleGenerarReporte() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Guardar Reporte PDF");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+        File file = fileChooser.showSaveDialog(new Stage());
+
+        if (file != null) {
+            try {
+                List<Huella> huellas = huellaService.findHuellasByUsuario(currentUser);
+                        List<Recomendacion> recomendaciones = new RecomendacionController().obtenerRecomendacionesPorHabitosPorCategoria(currentUser);
+                                PDFReportGenerator pdfReportGenerator = new PDFReportGenerator();
+                pdfReportGenerator.generateReport(file.getAbsolutePath(), huellas, recomendaciones);
+                showAlert("Éxito", "Reporte generado correctamente.");
+            } catch (Exception e) {
+                showAlert("Error", "No se pudo generar el reporte: " + e.getMessage());
+            }
         }
     }
 
