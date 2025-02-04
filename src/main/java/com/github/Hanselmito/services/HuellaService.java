@@ -88,6 +88,11 @@ public class HuellaService {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    public BigDecimal calcularMediaPorCategoria(String categoria) {
+        double media = huellaDAO.calcularMediaPorCategoria(categoria);
+        return BigDecimal.valueOf(media);
+    }
+
     private void validarHuella(Huella huella) throws Exception {
         if (huella.getIdActividad() == null) {
             throw new Exception("La actividad no puede estar vacía");
