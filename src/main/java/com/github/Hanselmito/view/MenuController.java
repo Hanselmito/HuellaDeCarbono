@@ -1,26 +1,26 @@
 package com.github.Hanselmito.view;
 
 import com.github.Hanselmito.App;
+import com.github.Hanselmito.controllers.RecomendacionController;
 import com.github.Hanselmito.entities.Habito;
 import com.github.Hanselmito.entities.Huella;
+import com.github.Hanselmito.entities.Recomendacion;
 import com.github.Hanselmito.entities.Usuario;
 import com.github.Hanselmito.services.HabitoService;
 import com.github.Hanselmito.services.HuellaService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
@@ -40,9 +40,6 @@ public class MenuController extends Controller implements Initializable {
 
     @FXML
     private Label username;
-
-    @FXML
-    private MenuButton filterByMenu;
 
     @FXML
     private MenuButton HuellaMenu;
@@ -130,6 +127,7 @@ public class MenuController extends Controller implements Initializable {
         borrarHabito.setOnAction(event -> openManageHabitoWindow(currentUser, "Borrar"));
 
         calcularImpacto.setOnAction(event -> handleCalcularImpacto());
+        recomendado.setOnAction(event -> handleRecomendado());
     }
 
     private void handleCalcularImpacto() {
@@ -157,6 +155,22 @@ public class MenuController extends Controller implements Initializable {
     }
 
     @FXML
+    private void handleRecomendado() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/github/Hanselmito/view/Recomendaciones.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            RecomendacionesController controller = fxmlLoader.getController();
+            controller.onOpen(currentUser);
+            stage.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void handleAvatarClick(MouseEvent event) throws Exception {
         openSettingUsuarioWindow(currentUser);
     }
@@ -180,7 +194,7 @@ public class MenuController extends Controller implements Initializable {
             for (Huella huella : huellas) {
                 AnchorPane huellaPane = createHuellaPane(huella, yOffset);
                 huellaAnchorPane.getChildren().add(huellaPane);
-                yOffset += 100.0; // Ajusta el valor según el tamaño del panel de huella
+                yOffset += 100.0;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -195,7 +209,7 @@ public class MenuController extends Controller implements Initializable {
             for (Habito habito : habitos) {
                 AnchorPane habitoPane = createHabitoPane(habito, yOffset);
                 habitoAnchorPane.getChildren().add(habitoPane);
-                yOffset += 100.0; // Ajusta el valor según el tamaño del panel de hábito
+                yOffset += 100.0;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -286,8 +300,16 @@ public class MenuController extends Controller implements Initializable {
 
         pane.getChildren().addAll(imageView, nombreUsuario, actividad, frecuenciaTipoFecha);
         pane.setOnMouseClicked(event -> {
-            handleSeleccionarHabito(habito);
-            pane.setStyle("-fx-background-color: #bdff73;");
+            try {
+                if (pane.getStyle().contains("#bdff73")) {
+                    pane.setStyle("");
+                } else {
+                    handleSeleccionarHabito(habito);
+                    pane.setStyle("-fx-background-color: #bdff73;");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
 
         return pane;
@@ -313,6 +335,11 @@ public class MenuController extends Controller implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void GoMenu(MouseEvent event)throws Exception{
+        App.currentController.changeScene(Scenes.MENU, currentUser);
     }
 
     private void showAlert(String title, String message) {

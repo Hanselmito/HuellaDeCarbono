@@ -144,12 +144,10 @@ public class ManageHabitoController extends Controller implements Initializable 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Configurar las opciones de tipo
         ObservableList<TipoEnum> tipos = FXCollections.observableArrayList(TipoEnum.values());
         anadirTipoChoiceBox.setItems(tipos);
         actualizarTipoChoiceBox.setItems(tipos);
 
-        // Configurar las columnas de las tablas
         usuarioColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdUsuario().getNombre()));
         actividadColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdActividad().getNombre()));
         frecuenciaColumn.setCellValueFactory(new PropertyValueFactory<>("frecuencia"));
@@ -162,7 +160,6 @@ public class ManageHabitoController extends Controller implements Initializable 
         UpdateTipoColumn.setCellValueFactory(new PropertyValueFactory<>("tipo"));
         UpdateUltimaFechaColumn.setCellValueFactory(new PropertyValueFactory<>("ultimaFecha"));
 
-        // Configurar TextFormatter para los campos de Frecuencia
         setTextFormatter(anadirFrecuenciaTextField);
         setTextFormatter(actualizarFrecuenciaTextField);
     }

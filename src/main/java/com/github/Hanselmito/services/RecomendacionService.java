@@ -1,11 +1,12 @@
 package com.github.Hanselmito.services;
 
 import com.github.Hanselmito.dao.RecomendacionDAO;
-import com.github.Hanselmito.entities.Huella;
+import com.github.Hanselmito.entities.Habito;
 import com.github.Hanselmito.entities.Recomendacion;
 import com.github.Hanselmito.entities.Usuario;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class RecomendacionService {
@@ -31,21 +32,16 @@ public class RecomendacionService {
                 .collect(Collectors.toList());
     }
 
-    public List<Recomendacion> obtenerRecomendacionesPorHuellas(Usuario usuario) throws Exception {
-        List<Huella> huellas = new HuellaService().findHuellasByUsuario(usuario);
-        List<Recomendacion> todasRecomendaciones = recomendacionDAO.findAll();
+    public List<Recomendacion> obtenerRecomendacionesPorHabitoPorCategoria(Usuario usuario) throws Exception {
+        List<Habito> habitos = new HabitoService().findHabitosByUsuario(usuario);
 
-        return todasRecomendaciones.stream()
-                .filter(recomendacion -> huellas.stream()
-                        .anyMatch(huella -> huella.getIdActividad().getIdCategoria().equals(recomendacion.getIdCategoria())))
-                .collect(Collectors.toList());
-    }
+        // Agrupar hábitos por categoría
+        Map<Integer, List<Habito>> habitosPorCategoria = habitos.stream()
+                .collect(Collectors.groupingBy(h -> h.getIdActividad().getIdCategoria().getId()));
 
-    public List<Recomendacion> obtenerRecomendacionesPorActividades(Usuario usuario) throws Exception {
         List<Recomendacion> todasRecomendaciones = recomendacionDAO.findAll();
         return todasRecomendaciones.stream()
-                .filter(recomendacion -> usuario.getHabitos().stream()
-                        .anyMatch(habito -> habito.getIdActividad().getIdCategoria().equals(recomendacion.getIdCategoria())))
+                .filter(recomendacion -> habitosPorCategoria.containsKey(recomendacion.getIdCategoria().getId()))
                 .collect(Collectors.toList());
     }
 }
