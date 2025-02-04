@@ -1,12 +1,10 @@
 package com.github.Hanselmito.view;
 
-import com.github.Hanselmito.App;
 import com.github.Hanselmito.controllers.UsuarioController;
 import com.github.Hanselmito.entities.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;

@@ -173,30 +173,25 @@ public class ManageHuellaController extends Controller implements Initializable 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Configurar las opciones de unidad
         ObservableList<String> unidades = FXCollections.observableArrayList("Km", "KWh", "Kg", "Kg", "m³");
         anadirUnidadChoiceBox.setItems(unidades);
         actualizarUnidadChoiceBox.setItems(unidades);
 
-        //Deshabilitar los ChoiceBox de unidad
         anadirUnidadChoiceBox.setDisable(true);
         actualizarUnidadChoiceBox.setDisable(true);
 
-        // Configurar el ChangeListener para anadirActividadChoiceBox
         anadirActividadChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 anadirUnidadChoiceBox.setValue(getUnidadPorActividad(newValue));
             }
         });
 
-        // Configurar el ChangeListener para actualizarActividadChoiceBox
         actualizarActividadChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 actualizarUnidadChoiceBox.setValue(getUnidadPorActividad(newValue));
             }
         });
 
-        // Configurar las columnas de las tablas Borrar y actualizar
         usuarioColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdUsuario().getNombre()));
         actividadColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdActividad().getNombre()));
         valorColumn.setCellValueFactory(new PropertyValueFactory<>("valor"));
@@ -209,7 +204,6 @@ public class ManageHuellaController extends Controller implements Initializable 
         UpdateUnidadColumn.setCellValueFactory(new PropertyValueFactory<>("unidad"));
         UpdateFechaColumn.setCellValueFactory(new PropertyValueFactory<>("fecha"));
 
-        // Configurar TextFormatter para los campos de Valor
         setTextFormatter(anadirValorTextField);
         setTextFormatter(actualizarValorTextField);
     }

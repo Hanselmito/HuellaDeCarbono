@@ -36,12 +36,10 @@ public class RegisterController extends Controller implements Initializable {
 
     @Override
     public void onOpen(Object input) throws Exception {
-        // Implementación específica de RegisterController
     }
 
     @Override
     public void onClose(Object output) {
-        // Implementación específica de RegisterController
     }
 
     @Override
