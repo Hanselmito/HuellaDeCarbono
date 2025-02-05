@@ -108,19 +108,19 @@
             <AnchorPane fx:id="borrarPane" visible="false">
             <HBox prefHeight="51.0" prefWidth="671.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ImageView fx:id="Home11" fitHeight="52.0" fitWidth="45.0" onMouseClicked="#GoMenu" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="Home2" fitHeight="52.0" fitWidth="45.0" onMouseClicked="#GoMenu" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Icon/3895539931556258249-128.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="labelHome11" onMouseClicked="#GoMenu" prefHeight="77.0" prefWidth="237.0" text="Carbon Footprint" underline="true">
+                  <Label fx:id="labelHome2" onMouseClicked="#GoMenu" prefHeight="77.0" prefWidth="237.0" text="Carbon Footprint" underline="true">
                      <font>
                         <Font name="System Bold Italic" size="28.0" />
                      </font>
                   </Label>
                   <Pane prefHeight="51.0" prefWidth="184.0" />
-                  <Label fx:id="username11" onMouseClicked="#handleAvatarClick" prefHeight="51.0" prefWidth="121.0" text="Usuario" />
-                  <ImageView fx:id="avatarImage11" fitHeight="51.0" fitWidth="105.0" onMouseClicked="#handleAvatarClick" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="username2" onMouseClicked="#handleAvatarClick" prefHeight="51.0" prefWidth="121.0" text="Usuario" />
+                  <ImageView fx:id="avatarImage2" fitHeight="51.0" fitWidth="105.0" onMouseClicked="#handleAvatarClick" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
                 <VBox layoutX="20.0" layoutY="68.0" prefHeight="409.0" prefWidth="634.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="68.0">

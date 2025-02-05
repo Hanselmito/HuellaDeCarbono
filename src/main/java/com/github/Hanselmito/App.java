@@ -4,8 +4,6 @@ import com.github.Hanselmito.view.AppController;
 import com.github.Hanselmito.view.Scenes;
 import com.github.Hanselmito.view.View;
 import javafx.application.Application;
-import javafx.geometry.Rectangle2D;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
@@ -16,15 +14,16 @@ public class App extends Application {
     public static AppController currentController;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage primaryStage) throws Exception {
+        App.stage = primaryStage;
         View view = AppController.loadFXML(Scenes.ROOT);
 
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        scene = new Scene(view.scene, screenBounds.getWidth(), screenBounds.getHeight());
+        scene = new Scene(view.scene);
+        primaryStage.setScene(scene);
+        primaryStage.centerOnScreen();
+        primaryStage.show();
 
         currentController = (AppController) view.controller;
         currentController.onOpen(null);
-        stage.setScene(scene);
-        stage.show();
     }
 }

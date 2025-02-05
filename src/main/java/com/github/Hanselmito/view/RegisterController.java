@@ -9,6 +9,7 @@ import com.github.Hanselmito.entities.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 
@@ -21,7 +22,7 @@ public class RegisterController extends Controller implements Initializable {
     private TextField TextEmail;
 
     @FXML
-    private TextField TextPassword;
+    private PasswordField TextPassword;
 
     @FXML
     private Label errorP;
