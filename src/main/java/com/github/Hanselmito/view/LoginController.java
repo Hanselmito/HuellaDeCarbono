@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.stage.Modality;
@@ -34,7 +35,7 @@ public class LoginController extends Controller implements Initializable {
     private TextField TextUser;
 
     @FXML
-    private TextField TextPassword;
+    private PasswordField TextPassword;
 
     @FXML
     private Button Login;
@@ -69,9 +70,11 @@ public class LoginController extends Controller implements Initializable {
     private void handleLogin() throws Exception {
         String identifier = TextUser.getText();
         String contrasena = TextPassword.getText();
+        System.out.println("Intentando iniciar sesión con usuario: " + identifier);
         try {
             Usuario usuario = usuarioController.login(identifier, contrasena);
             if (usuario != null) {
+                System.out.println("Inicio de sesión exitoso para el usuario: " + usuario.getNombre());
                 App.currentController.changeScene(Scenes.MENU, usuario);
             } else {
                 if (!usuarioController.comprobarCredenciales(identifier, "")) {
@@ -85,6 +88,7 @@ public class LoginController extends Controller implements Initializable {
         } catch (Exception e) {
             errorUE.setText("Nombre de Usuario o Email no válido");
             errorUE.setVisible(true);
+            e.printStackTrace();
         }
     }
 

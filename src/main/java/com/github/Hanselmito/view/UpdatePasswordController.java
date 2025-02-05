@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -17,10 +18,10 @@ public class UpdatePasswordController extends Controller implements Initializabl
     private TextField TextEmail;
 
     @FXML
-    private TextField TextNewPassword;
+    private PasswordField TextNewPassword;
 
     @FXML
-    private TextField TextConfirmPassword;
+    private PasswordField TextConfirmPassword;
 
     @FXML
     private Button Confirm;

@@ -34,16 +34,16 @@ import java.util.ResourceBundle;
 public class ManageHuellaController extends Controller implements Initializable {
 
     @FXML
-    private ImageView avatarImage;
+    private ImageView avatarImage, avatarImage1, avatarImage2;
 
     @FXML
-    private Label username;
+    private Label username, username1, username2;
 
     @FXML
-    private ImageView Home;
+    private ImageView Home, Home1, Home2;
 
     @FXML
-    private Label labelHome;
+    private Label labelHome, labelHome1, labelHome2;
 
     @FXML
     private StackPane stackPane;
@@ -130,6 +130,8 @@ public class ManageHuellaController extends Controller implements Initializable 
                 currentUser = (Usuario) inputs[0];
                 String action = (String) inputs[1];
                 username.setText(currentUser.getNombre());
+                username1.setText(currentUser.getNombre());
+                username2.setText(currentUser.getNombre());
                 switch (action) {
                     case "Añadir":
                         showPane(anadirPane);
@@ -148,16 +150,6 @@ public class ManageHuellaController extends Controller implements Initializable 
                         break;
                     default:
                         throw new Exception("Acción no reconocida: " + action);
-                }
-                try {
-                    URL avatarUrl = getClass().getResource("/com/github/Hanselmito/Icon/Avatar.png");
-                    if (avatarUrl != null) {
-                        avatarImage.setImage(new Image(avatarUrl.toString()));
-                    } else {
-                        throw new Exception("El archivo de imagen del avatar no se encuentra");
-                    }
-                } catch (Exception e) {
-                    throw new Exception("Error al cargar la imagen del avatar", e);
                 }
             } else {
                 throw new Exception("El input no es válido");
@@ -206,6 +198,19 @@ public class ManageHuellaController extends Controller implements Initializable 
 
         setTextFormatter(anadirValorTextField);
         setTextFormatter(actualizarValorTextField);
+
+        try {
+            URL avatarUrl = getClass().getResource("/com/github/Hanselmito/Icon/Avatar.png");
+            if (avatarUrl != null) {
+                avatarImage.setImage(new Image(avatarUrl.toString()));
+                avatarImage1.setImage(new Image(avatarUrl.toString()));
+                avatarImage2.setImage(new Image(avatarUrl.toString()));
+            } else {
+                throw new Exception("El archivo de imagen del avatar no se encuentra");
+            }
+        } catch (Exception e) {
+            System.out.println(e+"Error al cargar la imagen del avatar");
+        }
     }
 
     @FXML
