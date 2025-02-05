@@ -7,10 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -67,7 +65,7 @@ public class LoginController extends Controller implements Initializable {
         });
     }
 
-    private void handleLogin() throws Exception {
+    private void handleLogin() {
         String identifier = TextUser.getText();
         String contrasena = TextPassword.getText();
         System.out.println("Intentando iniciar sesión con usuario: " + identifier);

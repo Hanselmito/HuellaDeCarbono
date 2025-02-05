@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -12,8 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.DatePicker?>
-<AnchorPane prefHeight="483.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Hanselmito.view.ManageHabitoController">
+<AnchorPane prefHeight="619.0" prefWidth="896.0" stylesheets="@../Style/HuellaHabitoStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Hanselmito.view.ManageHabitoController">
     <children>
         <StackPane fx:id="stackPane" prefHeight="483.0" prefWidth="636.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <AnchorPane fx:id="anadirPane" visible="false">
@@ -40,7 +40,7 @@
             </AnchorPane>
             <AnchorPane fx:id="actualizarPane" visible="false">
                 <VBox layoutX="30.0" layoutY="66.0" spacing="10.0" AnchorPane.bottomAnchor="223.33333333333331" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="65.0">
-                    <Label prefHeight="17.0" prefWidth="115.0" text="Actualizar Hábito" />
+                    <Label prefHeight="30.0" prefWidth="157.0" text="Actualizar Hábito" />
                     <HBox spacing="10.0">
                         <Label text="Usuario" />
                         <TextField fx:id="actualizarUsuarioTextField" editable="false" prefHeight="25.0" prefWidth="157.0" />
@@ -59,17 +59,17 @@
                     </HBox>
                     <HBox spacing="10.0">
                         <Label text="Última Fecha" />
-                        <DatePicker fx:id="actualizarUltimaFechaDatePicker" />
+                        <DatePicker fx:id="actualizarUltimaFechaDatePicker" prefHeight="43.0" prefWidth="221.0" />
                     </HBox>
                     <Button onAction="#handleUpdateHabito" text="Actualizar" />
                 </VBox>
-                <TableView fx:id="UpdateHabitoTableView" layoutX="256.0" layoutY="65.33333333333333" prefHeight="400.0" prefWidth="403.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="256.0" AnchorPane.topAnchor="65.0">
+                <TableView fx:id="UpdateHabitoTableView" layoutX="384.0" layoutY="69.0" prefHeight="534.0" prefWidth="499.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="384.0" AnchorPane.topAnchor="69.0">
                     <columns>
-                        <TableColumn fx:id="UpdateUsuarioColumn" prefWidth="61.33331298828125" text="Usuario" />
-                        <TableColumn fx:id="UpdateActividadColumn" prefWidth="115.33331298828125" text="Actividad" />
-                        <TableColumn fx:id="UpdateFrecuenciaColumn" prefWidth="60.0" text="Frecuencia" />
-                        <TableColumn fx:id="UpdateTipoColumn" prefWidth="51.99993896484375" text="Tipo" />
-                        <TableColumn fx:id="UpdateUltimaFechaColumn" prefWidth="114.0" text="Última Fecha" />
+                        <TableColumn fx:id="UpdateUsuarioColumn" prefWidth="86.66665649414062" text="Usuario" />
+                        <TableColumn fx:id="UpdateActividadColumn" prefWidth="113.99996948242188" text="Actividad" />
+                        <TableColumn fx:id="UpdateFrecuenciaColumn" prefWidth="112.888916015625" text="Frecuencia" />
+                        <TableColumn fx:id="UpdateTipoColumn" prefWidth="52.66668701171875" text="Tipo" />
+                        <TableColumn fx:id="UpdateUltimaFechaColumn" prefWidth="132.00006103515625" text="Última Fecha" />
                     </columns>
                 </TableView>
             </AnchorPane>
@@ -79,15 +79,15 @@
                     <TableView fx:id="habitoTableView" prefHeight="385.0" prefWidth="403.0">
                         <columns>
                             <TableColumn fx:id="usuarioColumn" prefWidth="96.88887786865234" text="Usuario" />
-                            <TableColumn fx:id="actividadColumn" prefWidth="223.77783203125" text="Actividad" />
-                            <TableColumn fx:id="frecuenciaColumn" prefWidth="101.33331298828125" text="Frecuencia" />
-                            <TableColumn fx:id="tipoColumn" prefWidth="71.33331298828125" text="Tipo" />
-                            <TableColumn fx:id="ultimaFechaColumn" prefWidth="140.22210693359375" text="Última Fecha" />
+                            <TableColumn fx:id="actividadColumn" prefWidth="243.55560302734375" text="Actividad" />
+                            <TableColumn fx:id="frecuenciaColumn" prefWidth="155.77774047851562" text="Frecuencia" />
+                            <TableColumn fx:id="tipoColumn" prefWidth="136.66668701171875" text="Tipo" />
+                            <TableColumn fx:id="ultimaFechaColumn" prefWidth="224.44439697265625" text="Última Fecha" />
                         </columns>
                     </TableView>
                     <HBox prefHeight="28.0" prefWidth="403.0">
                         <children>
-                            <Pane prefHeight="25.0" prefWidth="248.0" />
+                            <Pane prefHeight="39.0" prefWidth="379.0" />
                             <Button onAction="#handleDeleteHabito" prefHeight="25.0" prefWidth="101.0" text="Borrar" />
                             <Pane prefHeight="25.0" prefWidth="286.0" />
                         </children>

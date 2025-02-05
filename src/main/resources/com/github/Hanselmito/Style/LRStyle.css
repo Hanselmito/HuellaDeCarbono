@@ -1,0 +1,41 @@
+AnchorPane {
+    -fx-background-color: #c5e1a5;
+}
+
+#Title {
+    -fx-font-weight: bold;
+    -fx-font-size: 32px;
+
+}
+#Label_Username_and_email, #Label_Password, #Label_Name, #Label_Email, #Label_ConfirmPassword, #Label_NewPassword {
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+
+}
+
+#Login, #Register, #Confirm, #UpdateButton {
+    -fx-background-color: #2E7D32;
+    -fx-text-fill: #C5E1A5;
+    -fx-font-size: 20px;
+    -fx-cursor: hand;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+#SignUp, #SignIn {
+    -fx-text-fill: #558B2F;
+    -fx-font-size: 18px;
+    -fx-cursor: hand;
+}
+
+#Forgotten {
+    -fx-text-fill: #558B2F;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+}
+
+#TextUser, #TextPassword, #TextName, #TextEmail, #TextConfirmPassword, #TextNewPassword {
+    -fx-border-color: #1B5E20;
+    -fx-border-width: 2px;
+    -fx-background-radius: 5px;
+}
