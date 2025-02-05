@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Hanselmito.view.MenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../Style/MenuStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Hanselmito.view.MenuController">
     <children>
         <Pane layoutX="350.0" layoutY="33.0" prefHeight="48.0" prefWidth="900.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -24,19 +24,19 @@
                                 <Image url="@../Icon/3895539931556258249-128.png" />
                             </image>
                         </ImageView>
-                        <Label fx:id="Title" onMouseClicked="#GoMenu" prefHeight="77.0" prefWidth="237.0" text="Carbon Footprint" underline="true">
+                        <Label fx:id="Title" onMouseClicked="#GoMenu" prefHeight="51.0" prefWidth="247.0" text="Carbon Footprint" underline="true">
                             <font>
                                 <Font name="System Bold Italic" size="28.0" />
                             </font>
                         </Label>
-                        <Pane prefHeight="51.0" prefWidth="417.0" />
+                        <Pane prefHeight="51.0" prefWidth="390.0" />
                         <Label fx:id="username" onMouseClicked="#handleAvatarClick" prefHeight="51.0" prefWidth="121.0" text="Usuario" />
                         <ImageView fx:id="avatarImage" fitHeight="51.0" fitWidth="105.0" onMouseClicked="#handleAvatarClick" pickOnBounds="true" preserveRatio="true" />
                     </children>
                 </HBox>
             </children>
         </Pane>
-        <VBox layoutX="17.0" layoutY="64.0" prefHeight="550.0" prefWidth="126.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="770.0" AnchorPane.topAnchor="50.0">
+        <VBox layoutX="17.0" layoutY="64.0" prefHeight="550.0" prefWidth="126.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="50.0">
             <children>
                 <Pane prefHeight="34.0" prefWidth="130.0" />
                 <MenuButton fx:id="HuellaMenu" mnemonicParsing="false" prefHeight="37.0" prefWidth="126.0" text="Huellas">
@@ -72,14 +72,14 @@
             </MenuButton>
             </children>
         </VBox>
-      <Pane layoutX="146.0" layoutY="54.0" prefHeight="549.0" prefWidth="755.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="133.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="58.0">
+      <Pane layoutX="134.0" layoutY="54.0" prefHeight="542.0" prefWidth="766.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="58.0">
          <children>
-            <ScrollPane fx:id="habitoScrollPane" layoutX="-4.0" prefHeight="526.0" prefWidth="396.0">
+            <ScrollPane fx:id="habitoScrollPane" layoutX="7.0" prefHeight="526.0" prefWidth="380.0">
                <content>
                   <AnchorPane fx:id="habitoAnchorPane" />
                </content>
             </ScrollPane>
-              <ScrollPane fx:id="huellaScrollPane" layoutX="401.0" layoutY="-1.0" prefHeight="528.0" prefWidth="350.0">
+              <ScrollPane fx:id="huellaScrollPane" layoutX="409.0" layoutY="-1.0" prefHeight="528.0" prefWidth="350.0">
                   <content>
                       <AnchorPane fx:id="huellaAnchorPane" />
                   </content>

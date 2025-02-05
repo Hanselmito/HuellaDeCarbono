@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="483.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Hanselmito.view.ManageHuellaController">
+<AnchorPane prefHeight="565.0" prefWidth="798.0" stylesheets="@../Style/HuellaHabitoStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Hanselmito.view.ManageHuellaController">
     <children>
         <StackPane fx:id="stackPane" prefHeight="483.0" prefWidth="636.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <AnchorPane fx:id="anadirPane" visible="false">
@@ -31,7 +31,7 @@
                         <Font name="System Bold Italic" size="28.0" />
                      </font>
                   </Label>
-                  <Pane prefHeight="51.0" prefWidth="184.0" />
+                  <Pane prefHeight="51.0" prefWidth="292.0" />
                   <Label fx:id="username" onMouseClicked="#handleAvatarClick" prefHeight="51.0" prefWidth="121.0" text="Usuario" />
                   <ImageView fx:id="avatarImage" fitHeight="51.0" fitWidth="105.0" onMouseClicked="#handleAvatarClick" pickOnBounds="true" preserveRatio="true" />
                </children>
@@ -70,7 +70,7 @@
                         <Font name="System Bold Italic" size="28.0" />
                      </font>
                   </Label>
-                  <Pane prefHeight="51.0" prefWidth="184.0" />
+                  <Pane prefHeight="51.0" prefWidth="288.0" />
                   <Label fx:id="username1" onMouseClicked="#handleAvatarClick" prefHeight="51.0" prefWidth="121.0" text="Usuario" />
                   <ImageView fx:id="avatarImage1" fitHeight="51.0" fitWidth="105.0" onMouseClicked="#handleAvatarClick" pickOnBounds="true" preserveRatio="true" />
                </children>
@@ -95,13 +95,13 @@
                     </HBox>
                     <Button onAction="#handleUpdateHuella" text="Actualizar" />
                 </VBox>
-                <TableView fx:id="UpdateHuellaTableView" layoutX="256.0" layoutY="65.33333333333333" prefHeight="400.0" prefWidth="403.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="256.0" AnchorPane.topAnchor="65.0">
+                <TableView fx:id="UpdateHuellaTableView" layoutX="325.0" layoutY="55.0" prefHeight="482.0" prefWidth="457.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="325.0" AnchorPane.topAnchor="55.0">
                     <columns>
-                        <TableColumn fx:id="UpdateUsuarioColumn" prefWidth="61.33331298828125" text="Usuario" />
-                        <TableColumn fx:id="UpdateActividadColumn" prefWidth="115.33331298828125" text="Actividad" />
-                        <TableColumn fx:id="UpdateValorColumn" prefWidth="60.0" text="Valor" />
-                        <TableColumn fx:id="UpdateUnidadColumn" prefWidth="51.99993896484375" text="Unidad" />
-                        <TableColumn fx:id="UpdateFechaColumn" prefWidth="114.0" text="Fecha" />
+                        <TableColumn fx:id="UpdateUsuarioColumn" prefWidth="80.88885629177094" text="Usuario" />
+                        <TableColumn fx:id="UpdateActividadColumn" prefWidth="115.11117935180664" text="Actividad" />
+                        <TableColumn fx:id="UpdateValorColumn" prefWidth="70.22227478027344" text="Valor" />
+                        <TableColumn fx:id="UpdateUnidadColumn" prefWidth="78.88897705078125" text="Unidad" />
+                        <TableColumn fx:id="UpdateFechaColumn" prefWidth="112.2222900390625" text="Fecha" />
                     </columns>
                 </TableView>
             </AnchorPane>
@@ -118,7 +118,7 @@
                         <Font name="System Bold Italic" size="28.0" />
                      </font>
                   </Label>
-                  <Pane prefHeight="51.0" prefWidth="184.0" />
+                  <Pane prefHeight="51.0" prefWidth="296.0" />
                   <Label fx:id="username2" onMouseClicked="#handleAvatarClick" prefHeight="51.0" prefWidth="121.0" text="Usuario" />
                   <ImageView fx:id="avatarImage2" fitHeight="51.0" fitWidth="105.0" onMouseClicked="#handleAvatarClick" pickOnBounds="true" preserveRatio="true" />
                </children>
@@ -127,16 +127,16 @@
                     <Label prefHeight="17.0" prefWidth="634.0" text="Borrar Huella" />
                     <TableView fx:id="huellaTableView" prefHeight="385.0" prefWidth="403.0">
                         <columns>
-                            <TableColumn fx:id="usuarioColumn" prefWidth="96.88887786865234" text="Usuario" />
-                            <TableColumn fx:id="actividadColumn" prefWidth="223.77783203125" text="Actividad" />
-                            <TableColumn fx:id="valorColumn" prefWidth="101.33331298828125" text="Valor" />
-                            <TableColumn fx:id="unidadColumn" prefWidth="71.33331298828125" text="Unidad" />
-                            <TableColumn fx:id="fechaColumn" prefWidth="140.22210693359375" text="Fecha" />
+                            <TableColumn fx:id="usuarioColumn" prefWidth="117.77778053283691" text="Usuario" />
+                            <TableColumn fx:id="actividadColumn" prefWidth="203.5555419921875" text="Actividad" />
+                            <TableColumn fx:id="valorColumn" prefWidth="111.111083984375" text="Valor" />
+                            <TableColumn fx:id="unidadColumn" prefWidth="122.22225952148438" text="Unidad" />
+                            <TableColumn fx:id="fechaColumn" prefWidth="204.88885498046875" text="Fecha" />
                         </columns>
                     </TableView>
                <HBox prefHeight="28.0" prefWidth="403.0">
                   <children>
-                     <Pane prefHeight="25.0" prefWidth="248.0" />
+                     <Pane prefHeight="39.0" prefWidth="329.0" />
                           <Button onAction="#handleDeleteHuella" prefHeight="25.0" prefWidth="101.0" text="Borrar" />
                      <Pane prefHeight="25.0" prefWidth="286.0" />
                   </children>

@@ -1,0 +1,46 @@
+AnchorPane {
+    -fx-background-color: #c5e1a5;
+}
+
+#Title {
+    -fx-font-weight: bold;
+    -fx-font-size: 32px;
+}
+
+#username {
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+}
+
+#anadirPane, #actualizarPane, #borrarPane {
+    -fx-background-color: #2E7D32;
+    -fx-text-fill: #C5E1A5;
+    -fx-font-size: 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+#anadirUsuarioTextField, #actualizarUsuarioTextField, #anadirFrecuenciaTextField, #actualizarFrecuenciaTextField, #anadirValorTextField, #actualizarValorTextField {
+    -fx-text-fill: #558B2F;
+    -fx-font-size: 18px;
+}
+
+#anadirActividadChoiceBox, #actualizarActividadChoiceBox, #anadirUnidadChoiceBox, #actualizarUnidadChoiceBox, #anadirTipoChoiceBox, #actualizarTipoChoiceBox {
+    -fx-text-fill: #558B2F;
+    -fx-font-size: 18px;
+}
+
+#anadirPane Button, #actualizarPane Button, #borrarPane Button {
+    -fx-background-color: #66bb6a;
+    -fx-text-fill: #C5E1A5;
+    -fx-font-size: 18px;
+    -fx-cursor: hand;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+#avatarImage, #avatarImage1, #avatarImage2 {
+    -fx-border-color: #1f5960;
+    -fx-border-width: 2px;
+    -fx-background-radius: 5px;
+}

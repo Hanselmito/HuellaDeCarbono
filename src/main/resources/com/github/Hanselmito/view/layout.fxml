@@ -7,19 +7,20 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Hanselmito.view.AppController">
+<AnchorPane stylesheets="@../Style/LoadStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Hanselmito.view.AppController">
     <children>
         <VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
+            <Pane prefHeight="14.0" prefWidth="250.0" />
                 <Pane prefHeight="207.0" prefWidth="250.0">
                     <children>
                         <ImageView fx:id="earthImageView" fitHeight="206.0" fitWidth="250.0" />
                         <Canvas fx:id="particleCanvas" height="206.0" width="250.0" />
                     </children>
                 </Pane>
-                <Pane prefHeight="95.0" prefWidth="250.0">
+                <Pane prefHeight="74.0" prefWidth="250.0">
                     <children>
-                        <ProgressIndicator fx:id="progressIndicator" layoutX="99.0" layoutY="14.0" prefWidth="200" />
+                        <ProgressIndicator fx:id="progressIndicator" layoutX="109.0" prefHeight="52.0" prefWidth="47.0" />
                     </children>
                 </Pane>
             </children>
