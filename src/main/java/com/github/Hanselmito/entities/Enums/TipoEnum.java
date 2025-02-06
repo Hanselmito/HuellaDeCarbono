@@ -12,10 +12,6 @@ public enum TipoEnum {
         this.tipo = tipo;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
     public static TipoEnum fromString(String tipo) {
         for (TipoEnum t : TipoEnum.values()) {
             if (t.tipo.equalsIgnoreCase(tipo)) {

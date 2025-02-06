@@ -39,7 +39,7 @@ public class HuellaService {
         return huella;
     }
 
-    public List<Huella> findHuellasByUsuario(Usuario usuario) throws Exception {
+    public List<Huella> findHuellasByUsuario(Usuario usuario){
         return huellaDAO.findByUsuario(usuario);
     }
 
@@ -57,30 +57,33 @@ public class HuellaService {
         return valor.multiply(factorEmision);
     }
 
-    public BigDecimal calcularImpactoDiario(Usuario usuario, LocalDate fecha) throws Exception {
+    public BigDecimal calcularImpactoDiario(Usuario usuario, LocalDate fecha, String categoria){
         List<Huella> huellas = huellaDAO.findByUsuarioAndDateRange(usuario, fecha, fecha);
         return huellas.stream()
+                .filter(huella -> huella.getIdActividad().getIdCategoria().getNombre().equalsIgnoreCase(categoria))
                 .map(this::calcularImpactoHuellaCarbono)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public BigDecimal calcularImpactoSemanal(Usuario usuario, LocalDate fechaInicio) throws Exception {
+    public BigDecimal calcularImpactoSemanal(Usuario usuario, LocalDate fechaInicio, String categoria){
         LocalDate fechaFin = fechaInicio.plusDays(6);
         List<Huella> huellas = huellaDAO.findByUsuarioAndDateRange(usuario, fechaInicio, fechaFin);
         return huellas.stream()
+                .filter(huella -> huella.getIdActividad().getIdCategoria().getNombre().equalsIgnoreCase(categoria))
                 .map(this::calcularImpactoHuellaCarbono)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public BigDecimal calcularImpactoMensual(Usuario usuario, LocalDate fechaInicio) throws Exception {
+    public BigDecimal calcularImpactoMensual(Usuario usuario, LocalDate fechaInicio, String categoria){
         LocalDate fechaFin = fechaInicio.plusMonths(1).minusDays(1);
         List<Huella> huellas = huellaDAO.findByUsuarioAndDateRange(usuario, fechaInicio, fechaFin);
         return huellas.stream()
+                .filter(huella -> huella.getIdActividad().getIdCategoria().getNombre().equalsIgnoreCase(categoria))
                 .map(this::calcularImpactoHuellaCarbono)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public BigDecimal calcularImpactoPorCategoria(Usuario usuario, String categoria, LocalDate fechaInicio, LocalDate fechaFin) throws Exception {
+    public BigDecimal calcularImpactoPorCategoria(Usuario usuario, String categoria, LocalDate fechaInicio, LocalDate fechaFin){
         List<Huella> huellas = huellaDAO.findByUsuarioAndDateRange(usuario, fechaInicio, fechaFin);
         return huellas.stream()
                 .filter(huella -> huella.getIdActividad().getIdCategoria().getNombre().equalsIgnoreCase(categoria))

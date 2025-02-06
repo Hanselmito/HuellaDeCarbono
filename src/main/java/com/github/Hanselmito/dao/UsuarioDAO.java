@@ -43,9 +43,9 @@ public class UsuarioDAO implements DAO<Usuario, Integer> {
         Session session = Connection.getInstance().getSession();
         Usuario usuario = session.get(Usuario.class, key);
         if (usuario != null) {
-            Hibernate.initialize(usuario.getHabitos()); // Inicializar la colección habitos
+            Hibernate.initialize(usuario.getHabitos());
         }
-        session.close(); // Cerrar la sesión después de inicializar la colección
+        session.close();
         return usuario;
     }
 
@@ -71,7 +71,5 @@ public class UsuarioDAO implements DAO<Usuario, Integer> {
 
     @Override
     public void close() {
-        // Implementación del método close
-        // Aquí puedes agregar la lógica para cerrar recursos si es necesario
     }
 }

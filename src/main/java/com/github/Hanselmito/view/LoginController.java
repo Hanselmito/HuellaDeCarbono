@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -47,6 +48,15 @@ public class LoginController extends Controller implements Initializable {
                 handleLogin();
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        });
+        TextPassword.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                try {
+                    handleLogin();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         SignUp.setOnMouseClicked(event -> {

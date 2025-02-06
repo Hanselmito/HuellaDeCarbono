@@ -12,7 +12,5 @@ public class Main {
             } else {
                 System.out.println("Conexión fallida");
             }
-            //consultar los registros de la tabla alumno.
-            //opcion º1.
     }
 }

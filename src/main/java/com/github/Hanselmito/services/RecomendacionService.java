@@ -24,7 +24,7 @@ public class RecomendacionService {
         return recomendacionDAO.findAll();
     }
 
-    public List<Recomendacion> obtenerRecomendacionesPorUsuario(Usuario usuario) throws Exception {
+    public List<Recomendacion> obtenerRecomendacionesPorUsuario(Usuario usuario){
         List<Recomendacion> todasRecomendaciones = recomendacionDAO.findAll();
         return todasRecomendaciones.stream()
                 .filter(recomendacion -> usuario.getHabitos().stream()
@@ -32,10 +32,9 @@ public class RecomendacionService {
                 .collect(Collectors.toList());
     }
 
-    public List<Recomendacion> obtenerRecomendacionesPorHabitoPorCategoria(Usuario usuario) throws Exception {
+    public List<Recomendacion> obtenerRecomendacionesPorHabitoPorCategoria(Usuario usuario) {
         List<Habito> habitos = new HabitoService().findHabitosByUsuario(usuario);
 
-        // Agrupar hábitos por categoría
         Map<Integer, List<Habito>> habitosPorCategoria = habitos.stream()
                 .collect(Collectors.groupingBy(h -> h.getIdActividad().getIdCategoria().getId()));
 

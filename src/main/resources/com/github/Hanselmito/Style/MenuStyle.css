@@ -2,6 +2,10 @@ AnchorPane {
     -fx-background-color: #c5e1a5;
 }
 
+#huellaAnchorPane, #habitoAnchorPane {
+    -fx-background-color: transparent;
+}
+
 #Title {
     -fx-font-weight: bold;
     -fx-font-size: 32px;
@@ -15,7 +19,7 @@ AnchorPane {
 #HuellaMenu, #HabitoMenu, #funcionalidadMenu {
     -fx-background-color: #2E7D32;
     -fx-text-fill: #C5E1A5;
-    -fx-font-size: 20px;
+    -fx-font-size: 18px;
     -fx-cursor: hand;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;

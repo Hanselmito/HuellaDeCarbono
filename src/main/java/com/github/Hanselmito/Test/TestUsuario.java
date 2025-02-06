@@ -8,6 +8,7 @@ import java.time.LocalDate;
 
 public class TestUsuario {
     public static void main(String[] args) {
+        /*
         Session session = Connection.getInstance().getSession();
         if (session != null) {
             System.out.println("Conexión establecida");
@@ -23,5 +24,6 @@ public class TestUsuario {
         } else {
             System.out.println("Conexión fallida");
         }
+        */
     }
 }
