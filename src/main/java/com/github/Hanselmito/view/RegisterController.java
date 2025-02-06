@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
 
 public class RegisterController extends Controller implements Initializable {
 
@@ -50,6 +51,15 @@ public class RegisterController extends Controller implements Initializable {
                 handleRegister();
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        });
+        TextPassword.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                try {
+                    handleRegister();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         SignIn.setOnMouseClicked(event -> {

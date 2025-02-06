@@ -74,6 +74,6 @@ public class HuellaDAO implements DAO<Huella, Integer> {
 
     @Override
     public void close() {
-        // Implementación del método close
+
     }
 }

@@ -123,6 +123,11 @@ public class MenuController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        huellaAnchorPane.setId("huellaAnchorPane");
+        habitoAnchorPane.setId("habitoAnchorPane");
+        huellaScrollPane.setContent(huellaAnchorPane);
+        habitoScrollPane.setContent(habitoAnchorPane);
+
         huellaScrollPane.setContent(huellaAnchorPane);
         habitoScrollPane.setContent(habitoAnchorPane);
 
@@ -140,11 +145,12 @@ public class MenuController extends Controller implements Initializable {
         try {
             if (huellaSeleccionada != null) {
                 LocalDate fecha = LocalDate.now();
-                BigDecimal impactoDiario = huellaService.calcularImpactoDiario(currentUser, fecha);
-                BigDecimal impactoSemanal = huellaService.calcularImpactoSemanal(currentUser, fecha);
-                BigDecimal impactoMensual = huellaService.calcularImpactoMensual(currentUser, fecha);
-
                 String categoria = huellaSeleccionada.getIdActividad().getIdCategoria().getNombre();
+
+                BigDecimal impactoDiario = huellaService.calcularImpactoDiario(currentUser, fecha, categoria);
+                BigDecimal impactoSemanal = huellaService.calcularImpactoSemanal(currentUser, fecha, categoria);
+                BigDecimal impactoMensual = huellaService.calcularImpactoMensual(currentUser, fecha, categoria);
+
                 BigDecimal impactoCategoria = huellaService.calcularImpactoPorCategoria(currentUser, categoria, fecha.minusDays(7), fecha);
 
                 showAlert("Impacto de Huella de Carbono",
@@ -282,7 +288,8 @@ public class MenuController extends Controller implements Initializable {
         AnchorPane pane = new AnchorPane();
         pane.setLayoutY(yOffset);
         pane.setPrefHeight(90.0);
-        pane.setPrefWidth(huellaScrollPane.getPrefWidth() - 20);
+        pane.setPrefWidth(huellaScrollPane.getPrefWidth() - 8);
+        pane.setLayoutX(2.4);
 
         ImageView imageView = new ImageView(new Image(getClass().getResource("/com/github/Hanselmito/Icon/Huella.png").toExternalForm()));
         imageView.setFitHeight(50);
@@ -308,6 +315,7 @@ public class MenuController extends Controller implements Initializable {
             try {
                 if (pane.getStyle().contains("#bdff73")) {
                     pane.setStyle("");
+                    huellaSeleccionada = null;
                 } else {
                     huellaSeleccionada = huella;
                     pane.setStyle("-fx-background-color: #bdff73;");
@@ -324,7 +332,8 @@ public class MenuController extends Controller implements Initializable {
         AnchorPane pane = new AnchorPane();
         pane.setLayoutY(yOffset);
         pane.setPrefHeight(90.0);
-        pane.setPrefWidth(habitoScrollPane.getPrefWidth() - 20);
+        pane.setPrefWidth(habitoScrollPane.getPrefWidth() - 8);
+        pane.setLayoutX(2.4);
 
         ImageView imageView = new ImageView(new Image(getClass().getResource("/com/github/Hanselmito/Icon/Huella.png").toExternalForm()));
         imageView.setFitHeight(50);

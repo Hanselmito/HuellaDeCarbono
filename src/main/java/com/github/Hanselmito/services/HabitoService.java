@@ -13,7 +13,7 @@ import java.util.List;
 public class HabitoService {
     private HabitoDAO habitoDAO = new HabitoDAO();
 
-    public void asignarActividad(Usuario usuario, Actividad actividad, int frecuencia, TipoEnum tipo, LocalDate ultimaFecha) throws Exception {
+    public void asignarActividad(Usuario usuario, Actividad actividad, int frecuencia, TipoEnum tipo, LocalDate ultimaFecha){
         HabitoId habitoId = new HabitoId();
         habitoId.setIdUsuario(usuario.getId());
         habitoId.setIdActividad(actividad.getId());
@@ -56,15 +56,15 @@ public class HabitoService {
         return habitoDAO.findAll();
     }
 
-    public List<Habito> findHabitosByUsuario(Usuario usuario) throws Exception {
+    public List<Habito> findHabitosByUsuario(Usuario usuario) {
         return habitoDAO.findHabitosByUsuario(usuario);
     }
 
-    public void updateHabito(Habito habito) throws Exception {
+    public void updateHabito(Habito habito){
         habitoDAO.update(habito);
     }
 
-    public void deleteHabito(Habito habito) throws Exception {
+    public void deleteHabito(Habito habito) {
         habitoDAO.delete(habito);
     }
 }

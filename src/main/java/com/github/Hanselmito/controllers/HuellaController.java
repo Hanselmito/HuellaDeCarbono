@@ -1,12 +1,9 @@
 package com.github.Hanselmito.controllers;
 
-import com.github.Hanselmito.entities.Usuario;
 import com.github.Hanselmito.services.HuellaService;
 import com.github.Hanselmito.entities.Huella;
 import javafx.scene.control.Alert;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 
 public class HuellaController {
     private HuellaService huellaService = new HuellaService();
@@ -48,18 +45,6 @@ public class HuellaController {
             showAlert("Error de búsqueda", e.getMessage());
             throw e;
         }
-    }
-
-    public BigDecimal calcularImpactoDiario(Usuario usuario, LocalDate fecha) throws Exception {
-        return huellaService.calcularImpactoDiario(usuario, fecha);
-    }
-
-    public BigDecimal calcularImpactoSemanal(Usuario usuario, LocalDate fechaInicio) throws Exception {
-        return huellaService.calcularImpactoSemanal(usuario, fechaInicio);
-    }
-
-    public BigDecimal calcularImpactoMensual(Usuario usuario, LocalDate fechaInicio) throws Exception {
-        return huellaService.calcularImpactoMensual(usuario, fechaInicio);
     }
 
     private void showAlert(String title, String message) {
